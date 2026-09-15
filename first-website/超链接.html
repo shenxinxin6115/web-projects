@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>超链接</title>
+</head>
+<body>
+    <p>超链接：用于在网页中创建可点击的链接，用户点击后可以跳转到指定的网页或资源。</p>
+    <a href="https://www.example.com" target="_blank">链接</a>
+    <a href="./resource/我的自拍.jpg" target="_blank">自拍</a>
+    <a href="./resource/小电影.mp4" target="_blank">小电影</a>
+    <a href="./resource/小姐姐.gif" target="_blank">小姐姐</a>
+    <a href="./resource/如何一夜暴富.pdf" target="_blank">如何一夜暴富</a>
+    <a href="./resource/内部资源.zip" target="_blank">内部资源</a>
+
+    <!-- 如何不打开只触发下载 -->
+    <p>下载链接：通过在a标签中添加download属性，可以让用户点击链接时直接下载文件，而不是在浏览器中打开。</p>
+    <a href="./resource/小电影.mp4" download="下载默认文件名">小电影下载</a>
+    
+    <!-- 锚点 -->
+    <p>锚点：用于在同一网页中创建跳转链接，用户点击后可以跳转到页面的指定位置。</p>
+    <a href="#htl">跳转到灰太狼</a>
+    <a href="#gs">跳转到怪兽</a>
+    <p>喜羊羊</p>
+    <img src="./path_test/a/喜羊羊.jpg" alt="喜羊羊">
+
+    <a name="htl" id="htl"></a>
+    <p>灰太狼</p>
+    <img src="./path_test/a/b/灰太狼.jpg" alt="灰太狼">
+
+    <p id="gs">怪兽</p>
+    <img src="./path_test/怪兽.jpg" alt="怪兽">
+
+    <p>整体介绍完毕了</p>
+    <a href="#">返回顶部</a>
+    <a href="">刷新界面</a>
+    <a href="./HTML排版标签.html">跳转到HTML排版标签页面</a>
+    <a href="javascript:alert('666');">点我弹窗</a>
+
+    <!-- 超链接唤起指定应用 -->
+    <a href="tel:10086">拨打电话</a>
+    <a href="mailto:user@example.com">发送邮件</a>
+    <a href="sms:1234567890">发送短信</a>
+
+</body>
+</html>
