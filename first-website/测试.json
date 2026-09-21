@@ -1,0 +1,347 @@
+[
+    {
+        "tunnelOverview": {
+            "name": "橙子沟隧道",
+            "tunnelType": "LeftRight"
+        },
+        "details": [
+            {
+                "type": "Separated",
+                "tunnelLineType": "Left",
+                "startPile": "ZK27+445",
+                "endPile": "ZK27+905",
+                "length": "460",
+                "entrancePortalType": "EndWall",
+                "exitPortalType": "EndWall",
+                "advanceSupports": [
+                    {
+                        "startPile": "ZK27+450",
+                        "endPile": "ZK27+478",
+                        "length": "28",
+                        "supportType": "长管棚",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+476",
+                        "endPile": "ZK27+494",
+                        "length": "18",
+                        "supportType": "超前注浆小导管",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+494",
+                        "endPile": "ZK27+618",
+                        "length": "124",
+                        "supportType": "超前锚杆",
+                        "pipeRoofOverlapLength": "0",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+618",
+                        "endPile": "ZK27+857",
+                        "length": "239",
+                        "supportType": "超前锚杆",
+                        "pipeRoofOverlapLength": "0",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+857",
+                        "endPile": "ZK27+874",
+                        "length": "17",
+                        "supportType": "超前注浆小导管",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "12"
+                    },
+                    {
+                        "startPile": "ZK27+872",
+                        "endPile": "ZK27+900",
+                        "length": "28",
+                        "supportType": "长管棚",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "12"
+                    }
+                ],
+                "gradeOfSurroundingRocks": [
+                    {
+                        "startPile": "ZK27+445",
+                        "endPile": "ZK27+484",
+                        "length": "39",
+                        "gradeOfSurroundingRock": "Ⅴ级",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+484",
+                        "endPile": "ZK27+608",
+                        "length": "124",
+                        "gradeOfSurroundingRock": "Ⅳ级",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+608",
+                        "endPile": "ZK27+708",
+                        "length": "100",
+                        "gradeOfSurroundingRock": "Ⅱ级",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+708",
+                        "endPile": "ZK27+867",
+                        "length": "159",
+                        "gradeOfSurroundingRock": "Ⅳ级",
+                        "pageNo": "12"
+                    },
+                    {
+                        "startPile": "ZK27+867",
+                        "endPile": "ZK27+905",
+                        "length": "38",
+                        "gradeOfSurroundingRock": "Ⅴ级",
+                        "pageNo": "12"
+                    }
+                ],
+                "liningTypes": [
+                    {
+                        "startPile": "ZK27+445",
+                        "endPile": "ZK27+450",
+                        "length": "5",
+                        "liningType": "DSMb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+450",
+                        "endPile": "ZK27+494",
+                        "length": "44",
+                        "liningType": "DSVa",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+494",
+                        "endPile": "ZK27+618",
+                        "length": "124",
+                        "liningType": "DSⅣb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+618",
+                        "endPile": "ZK27+698",
+                        "length": "80",
+                        "liningType": "DSⅡ",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "11"
+                    },
+                    {
+                        "startPile": "ZK27+698",
+                        "endPile": "ZK27+857",
+                        "length": "159",
+                        "liningType": "DSⅣb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "12"
+                    },
+                    {
+                        "startPile": "ZK27+857",
+                        "endPile": "ZK27+900",
+                        "length": "43",
+                        "liningType": "DSVa",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "12"
+                    },
+                    {
+                        "startPile": "ZK27+900",
+                        "endPile": "ZK27+905",
+                        "length": "5",
+                        "liningType": "DSMa",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "12"
+                    }
+                ],
+                "tunnelLinings": [],
+                "brokenChains": []
+            },
+            {
+                "type": "Separated",
+                "tunnelLineType": "Right",
+                "startPile": "K27+473",
+                "endPile": "K27+900",
+                "length": "427",
+                "entrancePortalType": "EndWall",
+                "exitPortalType": "EndWall",
+                "advanceSupports": [
+                    {
+                        "startPile": "K27+477",
+                        "endPile": "K27+505",
+                        "length": "28",
+                        "supportType": "长管棚",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+503",
+                        "endPile": "K27+509",
+                        "length": "6",
+                        "supportType": "超前注浆小导管",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+509",
+                        "endPile": "K27+613",
+                        "length": "104",
+                        "supportType": "超前锚杆",
+                        "pipeRoofOverlapLength": "0",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+713",
+                        "endPile": "K27+839",
+                        "length": "126",
+                        "supportType": "超前锚杆",
+                        "pipeRoofOverlapLength": "0",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+839",
+                        "endPile": "K27+864",
+                        "length": "25",
+                        "supportType": "超前注浆小导管",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "14"
+                    },
+                    {
+                        "startPile": "K27+862",
+                        "endPile": "K27+890",
+                        "length": "28",
+                        "supportType": "长管棚",
+                        "pipeRoofOverlapLength": "2",
+                        "pageNo": "14"
+                    }
+                ],
+                "gradeOfSurroundingRocks": [
+                    {
+                        "startPile": "K27+473",
+                        "endPile": "K27+499",
+                        "length": "26",
+                        "gradeOfSurroundingRock": "Ⅴ级",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+499",
+                        "endPile": "K27+603",
+                        "length": "104",
+                        "gradeOfSurroundingRock": "Ⅳ级",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+603",
+                        "endPile": "K27+723",
+                        "length": "120",
+                        "gradeOfSurroundingRock": "Ⅱ级",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+723",
+                        "endPile": "K27+849",
+                        "length": "126",
+                        "gradeOfSurroundingRock": "Ⅳ级",
+                        "pageNo": "14"
+                    },
+                    {
+                        "startPile": "K27+849",
+                        "endPile": "K27+900",
+                        "length": "51",
+                        "gradeOfSurroundingRock": "Ⅴ级",
+                        "pageNo": "14"
+                    }
+                ],
+                "liningTypes": [
+                    {
+                        "startPile": "K27+473",
+                        "endPile": "K27+477",
+                        "length": "4",
+                        "liningType": "DSMb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+477",
+                        "endPile": "K27+498",
+                        "length": "21",
+                        "liningType": "DSVa",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+498",
+                        "endPile": "K27+509",
+                        "length": "11",
+                        "liningType": "DSⅤb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+509",
+                        "endPile": "K27+613",
+                        "length": "104",
+                        "liningType": "DSⅣb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+613",
+                        "endPile": "K27+713",
+                        "length": "100",
+                        "liningType": "DSⅢ",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+713",
+                        "endPile": "K27+839",
+                        "length": "126",
+                        "liningType": "DSⅣb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "13"
+                    },
+                    {
+                        "startPile": "K27+839",
+                        "endPile": "K27+890",
+                        "length": "51",
+                        "liningType": "DSⅤa",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "14"
+                    },
+                    {
+                        "startPile": "K27+890",
+                        "endPile": "K27+900",
+                        "length": "10",
+                        "liningType": "DSMb",
+                        "hasInvert": false,
+                        "sectionType": "Mined",
+                        "pageNo": "14"
+                    }
+                ],
+                "tunnelLinings": [],
+                "brokenChains": []
+            },
+            {}
+        ],
+        "crossPassages": []
+    }
+]
