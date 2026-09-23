@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单分组</title>
+    <style>
+        .personal-info {
+            /* 1. 尺寸控制 */
+            width: 360px;
+            /* 设置具体长度/宽度，也可写百分比如 80% */
+            min-width: 0;
+            /* 覆盖浏览器默认限制，确保自定义宽度生效 */
+            min-height: 150px;
+            /* 最小高度，避免内容过多时溢出 */
+            box-sizing: border-box;
+            /* 尺寸包含 padding 和 border */
+            /* 2. 边框与间距美化（可选） */
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin: 20px 0;
+        }
+
+        .personal-info legend {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 8px;
+            /* 标题文字两边的留白 */
+            color: #333;
+            margin: 0 auto;
+            /* 现代浏览器推荐：把 legend 水平居中 */
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+        }
+        .btn {
+            padding: 6px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset class="personal-info">
+        <legend>个人信息</legend>
+        <div class="form-group"> 
+            <div class="form-row">
+                <label for="account">账号：</label>
+                <input type="text" id="account" name="account" maxlength="10" required><br> 
+            </div>
+            <div class="form-row">
+                <label>
+                    <span>密码：</span><input type="password" name="password" maxlength="6" required>
+                </label>
+            </div>
+            <div class="form-row">
+                <span>性别：</span>
+                <input type="radio" name="gender" value="male" id="male" checked> 
+                <label for="male">男</label> 
+                    <input type="radio" name="gender" value="female" id="female"> 
+                <label for="female">女</label>
+            </div>
+            <div class="form-row" style="gap: 20px;">
+                <button type="submit" class="btn">登录</button>
+                <button type="button" class="btn">注册</button>
+            </div>
+        </div>
+    </fieldset>
+</body>
+
+</html>
