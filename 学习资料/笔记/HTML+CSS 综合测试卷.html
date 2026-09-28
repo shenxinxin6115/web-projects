@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML + CSS 综合测试卷（HTML4 / HTML5 / CSS2 / CSS3）</title>
+<style>
+  :root{
+    --ink:#1f2328;
+    --ink-2:#4a5158;
+    --ink-3:#6b7280;
+    --line:#dfe3e8;
+    --line-2:#eef1f4;
+    --bg:#f5f6f8;
+    --paper:#ffffff;
+    --accent:#1f6feb;
+    --accent-soft:#eaf2ff;
+    --green:#1a7f4b;
+    --green-soft:#e9f7ef;
+    --amber:#9a6700;
+    --amber-soft:#fff8e6;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    padding:28px 16px 64px;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px;
+    line-height:1.85;
+  }
+  .paper{
+    max-width:920px;
+    margin:0 auto;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:40px 48px 56px;
+    box-shadow:0 1px 3px rgba(16,24,40,.06),0 12px 32px rgba(16,24,40,.06);
+  }
+
+  /* ---------- 卷头 ---------- */
+  .head{text-align:center;border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:8px;}
+  .head h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px;}
+  .head .sub{margin:0;color:var(--ink-3);font-size:14px;}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;
+    margin:16px 0 0;font-size:14px;color:var(--ink-2);
+  }
+  .meta span{white-space:nowrap;}
+  .meta b{color:var(--ink);}
+  .fillline{display:inline-block;min-width:110px;border-bottom:1px solid var(--ink-3);}
+
+  /* ---------- 提示条 ---------- */
+  .tip{
+    margin:22px 0 4px;padding:12px 16px;border-radius:8px;
+    background:var(--accent-soft);border:1px solid #cfe0ff;color:#123a70;font-size:13.5px;
+  }
+  .toolbar{display:flex;gap:10px;justify-content:flex-end;margin:16px 0 0;}
+  .btn{
+    appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink-2);
+    padding:7px 14px;border-radius:7px;font-size:13.5px;cursor:pointer;
+    font-family:inherit;transition:.15s;
+  }
+  .btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
+  /* ---------- 章节 ---------- */
+  h2.sec{
+    margin:40px 0 14px;padding:8px 0 8px 14px;font-size:18px;
+    border-left:4px solid var(--accent);background:linear-gradient(90deg,#f7faff,transparent);
+  }
+  h2.sec small{font-weight:400;color:var(--ink-3);font-size:13px;margin-left:8px;}
+
+  /* ---------- 题目 ---------- */
+  ol.q{list-style:none;margin:0;padding:0;counter-reset:none;}
+  .q-item{margin:0 0 14px;padding:0 0 0 0;}
+  .q-item > .stem{display:flex;gap:8px;}
+  .q-item .no{
+    flex:0 0 auto;font-weight:700;color:var(--accent);
+    font-variant-numeric:tabular-nums;
+  }
+  .opts{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:2px 20px;margin:4px 0 0 26px;
+  }
+  .opts.one{grid-template-columns:1fr;}
+  .opts .opt{color:var(--ink-2);}
+  .opts .opt b{color:var(--ink);font-weight:600;margin-right:2px;}
+  .blank{display:inline-block;min-width:80px;border-bottom:1px solid var(--ink-3);margin:0 4px;}
+  pre{
+    margin:8px 0 8px 26px;padding:12px 14px;background:#f8f9fb;border:1px solid var(--line-2);
+    border-left:3px solid #c8d2dd;border-radius:6px;overflow-x:auto;
+    font-family:Consolas,"Courier New",ui-monospace,monospace;font-size:13px;line-height:1.7;color:#243b53;
+  }
+  code.inl{
+    background:#f1f3f6;border:1px solid var(--line-2);border-radius:4px;
+    padding:1px 5px;font-family:Consolas,"Courier New",monospace;font-size:13px;color:#1b4b8f;
+  }
+  .sub-q{margin:6px 0 0 26px;color:var(--ink-2);}
+
+  /* ---------- 答案 ---------- */
+  .answers{display:none;margin-top:14px;}
+  body.show-ans .answers{display:block;}
+  .ans-block{
+    margin:0 0 18px;padding:14px 18px;border-radius:8px;
+    background:var(--green-soft);border:1px solid #c8e9d5;
+  }
+  .ans-block h3{margin:0 0 8px;font-size:15px;color:var(--green);}
+  .ans-block .row{font-size:14px;color:#134a2d;margin:2px 0;}
+  .ans-block .row b{color:var(--green);}
+  .ans-block .exp{color:#2c5a41;font-size:13.5px;}
+  .ans-block table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 2px;}
+  .ans-block th,.ans-block td{border:1px solid #c8e9d5;padding:5px 8px;text-align:left;color:#134a2d;background:#fff;}
+  .ans-block th{background:#eefaf2;font-weight:600;}
+  .ans-block pre{background:#fff;border-color:#c8e9d5;border-left-color:#7cc79a;color:#134a2d;margin-left:0;}
+
+  /* ---------- 覆盖对照表 ---------- */
+  .cover-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+  .cover-table th,.cover-table td{border:1px solid var(--line);padding:6px 9px;vertical-align:top;}
+  .cover-table th{background:#f3f5f8;font-weight:600;text-align:left;}
+  .cover-table td:first-child{white-space:nowrap;color:var(--accent);font-weight:600;}
+  .foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--line-2);color:var(--ink-3);font-size:12.5px;text-align:center;}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:720px){
+    body{padding:14px 8px 40px;}
+    .paper{padding:24px 18px 36px;border-radius:8px;}
+    .head h1{font-size:20px;}
+    .opts{grid-template-columns:1fr;margin-left:0;}
+    pre{margin-left:0;}
+    .sub-q{margin-left:0;}
+  }
+
+  /* ---------- 打印 ---------- */
+  @media print{
+    @page{size:A4;margin:14mm 12mm;}
+    body{background:#fff;padding:0;font-size:11.5pt;line-height:1.65;}
+    .paper{box-shadow:none;border:0;border-radius:0;max-width:none;padding:0;}
+    .toolbar,.tip{display:none;}
+    .answers{display:block !important;page-break-before:always;}
+    .ans-block{background:#fff;border:1px solid #bbb;}
+    .ans-block h3{color:#000;}
+    .ans-block .row,.ans-block .exp,.ans-block td,.ans-block th{color:#000;}
+    .ans-block th{background:#f0f0f0;}
+    .q-item{page-break-inside:avoid;}
+    h2.sec{page-break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <!-- ===================== 卷头 ===================== -->
+  <div class="head">
+    <h1>HTML + CSS 综合测试卷</h1>
+    <p class="sub">覆盖范围：HTML4 基础 · HTML5 新增 · CSS2 基础 · CSS3 新增</p>
+    <div class="meta">
+      <span>满分：<b>200</b> 分</span>
+      <span>考试时间：<b>120</b> 分钟</span>
+      <span>姓名：<span class="fillline"></span></span>
+      <span>班级：<span class="fillline"></span></span>
+      <span>得分：<span class="fillline"></span></span>
+    </div>
+  </div>
+
+  <div class="tip">
+    <b>题型分布：</b>一、单项选择题 30×2=60 分 ｜ 二、多项选择题 10×3=30 分 ｜ 三、判断题 15×1=15 分 ｜
+    四、填空题 20×1=20 分 ｜ 五、简答题 8×5=40 分 ｜ 六、代码阅读与编写题 35 分。<br>
+    多项选择题<b>多选、少选、错选均不得分</b>；填空题每空 1 分。点击右上角按钮可显示／隐藏参考答案。
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" id="toggleBtn" type="button">显示参考答案</button>
+    <button class="btn" type="button" onclick="window.print()">打印 / 导出 PDF</button>
+  </div>
+
+  <!-- ===================== 一、单选 ===================== -->
+  <h2 class="sec">一、单项选择题 <small>每题 2 分，共 60 分</small></h2>
+  <ol class="q">
+
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>下列选项中，<b>不属于</b> HTML5 新增语义化标签的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>header</span><span class="opt"><b>B.</b>nav</span><span class="opt"><b>C.</b>center</span><span class="opt"><b>D.</b>aside</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>CSS 的全称是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>Cascading Style Sheets</span><span class="opt"><b>B.</b>Computer Style Sheets</span><span class="opt"><b>C.</b>Creative Style Sheets</span><span class="opt"><b>D.</b>Colorful Style Sheets</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>下列关于 HTML 文档声明的说法，正确的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>必须写在 <code class="inl">html</code> 标签内部</span><span class="opt"><b>B.</b>必须写在网页第一行，且在 <code class="inl">html</code> 标签的外侧</span><span class="opt"><b>C.</b>可以写在 <code class="inl">body</code> 标签中</span><span class="opt"><b>D.</b>只能写成 <code class="inl">&lt;!DOCTYPE HTML5&gt;</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>下列字符集中，收录范围最广、包含世界上所有语言的文字与符号的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>ASCII</span><span class="opt"><b>B.</b>GB2312</span><span class="opt"><b>C.</b>GBK</span><span class="opt"><b>D.</b>UTF-8</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>选择器权重 (1,0,0) 与 (0,2,2) 比较，结果是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>(0,2,2) 大</span><span class="opt"><b>B.</b>(1,0,0) 大</span><span class="opt"><b>C.</b>一样大</span><span class="opt"><b>D.</b>无法比较</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>下列关于行内元素的说法，正确的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>在页面中独占一行</span><span class="opt"><b>B.</b>可以通过 CSS 自由设置宽高</span><span class="opt"><b>C.</b>默认宽度由内容撑开</span><span class="opt"><b>D.</b>可以包含块级元素</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>让单行文字在固定高度的盒子中实现垂直居中，最常用的做法是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">text-align:center</code></span><span class="opt"><b>B.</b><code class="inl">vertical-align:middle</code></span><span class="opt"><b>C.</b>让 <code class="inl">height</code> 等于 <code class="inl">line-height</code></span><span class="opt"><b>D.</b><code class="inl">margin:0 auto</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>下列现象属于 <b>margin 塌陷</b>的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>上面兄弟元素的下外边距和下面兄弟元素的上外边距取较大值</span><span class="opt"><b>B.</b>第一个子元素的上外边距作用在了父元素上</span><span class="opt"><b>C.</b>浮动元素的父元素高度变为 0</span><span class="opt"><b>D.</b>行内元素设置上下外边距无效</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>清除浮动时，笔记中<b>推荐</b>使用的方法是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>给父元素指定高度</span><span class="opt"><b>B.</b>给父元素也设置浮动</span><span class="opt"><b>C.</b>给父元素设置伪元素并设置 <code class="inl">clear:both</code></span><span class="opt"><b>D.</b>给父元素设置 <code class="inl">overflow:visible</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>关于绝对定位 <code class="inl">position:absolute</code>，下列说法<b>错误</b>的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>会脱离文档流</span><span class="opt"><b>B.</b>参考它的包含块定位</span><span class="opt"><b>C.</b>参考自己原来的位置定位</span><span class="opt"><b>D.</b>与浮动同时设置时，浮动失效</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>让绝对定位元素在包含块中水平垂直居中，下列写法可以的是（　　）</span></div>
+      <div class="opts one">
+        <span class="opt"><b>A.</b><code class="inl">left:50%; top:50%; margin:auto;</code></span>
+        <span class="opt"><b>B.</b><code class="inl">left:0; right:0; top:0; bottom:0; margin:auto;</code></span>
+        <span class="opt"><b>C.</b><code class="inl">left:50%; top:50%; transform:translate(-50%,-50%);</code></span>
+        <span class="opt"><b>D.</b>B 和 C 都可以（B 需设置宽高）</span>
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>元素进行 3D 变换的首要操作是让父元素开启 3D 空间，应使用属性（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">perspective</code></span><span class="opt"><b>B.</b><code class="inl">transform-style: preserve-3d</code></span><span class="opt"><b>C.</b><code class="inl">backface-visibility</code></span><span class="opt"><b>D.</b><code class="inl">transform-origin</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>下列属性中，<b>不能</b>被继承的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">color</code></span><span class="opt"><b>B.</b><code class="inl">font-size</code></span><span class="opt"><b>C.</b><code class="inl">text-align</code></span><span class="opt"><b>D.</b><code class="inl">border</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>flex 布局中，设置<b>主轴对齐方式</b>的属性是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">align-items</code></span><span class="opt"><b>B.</b><code class="inl">justify-content</code></span><span class="opt"><b>C.</b><code class="inl">align-content</code></span><span class="opt"><b>D.</b><code class="inl">flex-direction</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>flex 复合属性中，<code class="inl">flex:1</code> 等价于（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">flex:1 1 auto</code></span><span class="opt"><b>B.</b><code class="inl">flex:1 1 0</code></span><span class="opt"><b>C.</b><code class="inl">flex:0 1 auto</code></span><span class="opt"><b>D.</b><code class="inl">flex:0 0 auto</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">16.</span><span>希望 <code class="inl">width</code> 和 <code class="inl">height</code> 设置的是盒子总大小（怪异盒模型），应使用（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">box-sizing:content-box</code></span><span class="opt"><b>B.</b><code class="inl">box-sizing:border-box</code></span><span class="opt"><b>C.</b><code class="inl">box-model:border-box</code></span><span class="opt"><b>D.</b><code class="inl">display:border-box</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">17.</span><span><code class="inl">background-size</code> 的取值中，将背景图等比缩放至<b>完全覆盖容器</b>的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">contain</code></span><span class="opt"><b>B.</b><code class="inl">cover</code></span><span class="opt"><b>C.</b><code class="inl">auto</code></span><span class="opt"><b>D.</b><code class="inl">100% 100%</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">18.</span><span>关于 <code class="inl">text-overflow:ellipsis</code> 的生效条件，下列说法<b>错误</b>的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>容器必须是块容器</span><span class="opt"><b>B.</b><code class="inl">overflow</code> 的值不能是 <code class="inl">visible</code></span><span class="opt"><b>C.</b><code class="inl">white-space</code> 必须为 <code class="inl">nowrap</code></span><span class="opt"><b>D.</b>必须同时设置 <code class="inl">text-align:center</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">19.</span><span>HTML5 中，语义为"侧边栏"的标签是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">aside</code></span><span class="opt"><b>B.</b><code class="inl">article</code></span><span class="opt"><b>C.</b><code class="inl">section</code></span><span class="opt"><b>D.</b><code class="inl">nav</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">20.</span><span>关于 <code class="inl">article</code> 与 <code class="inl">section</code>，下列说法<b>错误</b>的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b><code class="inl">article</code> 里面可以有多个 <code class="inl">section</code></span><span class="opt"><b>B.</b><code class="inl">section</code> 强调的是分段或分块</span><span class="opt"><b>C.</b><code class="inl">article</code> 比 <code class="inl">section</code> 更强调独立性</span><span class="opt"><b>D.</b><code class="inl">section</code> 里面不能写 <code class="inl">article</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">21.</span><span>HTML5 中用于显示"某个任务完成进度"的标签是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">meter</code></span><span class="opt"><b>B.</b><code class="inl">progress</code></span><span class="opt"><b>C.</b><code class="inl">datalist</code></span><span class="opt"><b>D.</b><code class="inl">mark</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">22.</span><span>表单中要让多个单选框实现单选效果，必须保证它们的（　　）属性值相同</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">id</code></span><span class="opt"><b>B.</b><code class="inl">value</code></span><span class="opt"><b>C.</b><code class="inl">name</code></span><span class="opt"><b>D.</b><code class="inl">checked</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">23.</span><span>下列 <code class="inl">input</code> 的 type 值中，表单提交时<b>会</b>验证格式的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">search</code></span><span class="opt"><b>B.</b><code class="inl">tel</code></span><span class="opt"><b>C.</b><code class="inl">email</code></span><span class="opt"><b>D.</b><code class="inl">range</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">24.</span><span>下列关于伪元素 <code class="inl">::before</code> 的说法，正确的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>必须配合 <code class="inl">content</code> 属性使用</span><span class="opt"><b>B.</b>只能用于 <code class="inl">a</code> 标签</span><span class="opt"><b>C.</b>它属于伪类选择器</span><span class="opt"><b>D.</b>只能在元素内部最后创建内容</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">25.</span><span>动态伪类选择器建议遵循的顺序（LVHA）是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>:link → :visited → :hover → :active</span><span class="opt"><b>B.</b>:link → :hover → :visited → :active</span><span class="opt"><b>C.</b>:hover → :link → :visited → :active</span><span class="opt"><b>D.</b>:visited → :link → :hover → :active</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">26.</span><span>下列关于元素显示模式的说法，<b>错误</b>的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>块级元素在页面中独占一行</span><span class="opt"><b>B.</b>行内元素可以完美设置左右 margin</span><span class="opt"><b>C.</b>行内元素可以完美设置上下 padding</span><span class="opt"><b>D.</b>行内块元素可以设置宽高</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">27.</span><span>下列长度单位中，相对于<b>根元素字体大小</b>计算的是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">px</code></span><span class="opt"><b>B.</b><code class="inl">em</code></span><span class="opt"><b>C.</b><code class="inl">rem</code></span><span class="opt"><b>D.</b><code class="inl">vw</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">28.</span><span>Firefox 浏览器的 CSS3 私有前缀是（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">-webkit-</code></span><span class="opt"><b>B.</b><code class="inl">-moz-</code></span><span class="opt"><b>C.</b><code class="inl">-ms-</code></span><span class="opt"><b>D.</b><code class="inl">-o-</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">29.</span><span>关于粘性定位 <code class="inl">position:sticky</code>，下列说法正确的是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>会脱离文档流</span><span class="opt"><b>B.</b>不会脱离文档流，最常用的值是 top</span><span class="opt"><b>C.</b>参考视口定位</span><span class="opt"><b>D.</b>参考最近的已定位祖先元素定位</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">30.</span><span>下列<b>不属于</b> BFC 能解决的问题是（　　）</span></div>
+      <div class="opts one"><span class="opt"><b>A.</b>子元素产生 margin 塌陷</span><span class="opt"><b>B.</b>自身被其他浮动元素覆盖</span><span class="opt"><b>C.</b>子元素浮动导致自身高度塌陷</span><span class="opt"><b>D.</b>行内元素设置上下 margin 无效</span></div></li>
+
+  </ol>
+
+  <!-- ===================== 二、多选 ===================== -->
+  <h2 class="sec">二、多项选择题 <small>每题 3 分，共 30 分（多选、少选、错选均不得分）</small></h2>
+  <ol class="q">
+
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>下列属于 HTML5 新增语义化标签的有（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">header</code></span><span class="opt"><b>B.</b><code class="inl">section</code></span><span class="opt"><b>C.</b><code class="inl">center</code></span><span class="opt"><b>D.</b><code class="inl">footer</code></span><span class="opt"><b>E.</b><code class="inl">main</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>CSS 的三大特性包括（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>层叠性</span><span class="opt"><b>B.</b>继承性</span><span class="opt"><b>C.</b>优先级</span><span class="opt"><b>D.</b>浮动性</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>下列关于 CSS 编写位置的说法，正确的有（　　）</span></div>
+      <div class="opts one">
+        <span class="opt"><b>A.</b>行内样式写在标签的 <code class="inl">style</code> 属性中，只能控制当前标签</span>
+        <span class="opt"><b>B.</b>内部样式写在 <code class="inl">&lt;style&gt;</code> 标签中，一般放在 <code class="inl">head</code> 中</span>
+        <span class="opt"><b>C.</b>外部样式通过 <code class="inl">&lt;link&gt;</code> 引入，<code class="inl">link</code> 标签要写在 <code class="inl">head</code> 中</span>
+        <span class="opt"><b>D.</b>优先级：行内样式 &gt; 内部样式 = 外部样式</span>
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>下列关于盒子模型的说法，正确的有（　　）</span></div>
+      <div class="opts one">
+        <span class="opt"><b>A.</b>盒子大小 = content + 左右 padding + 左右 border</span>
+        <span class="opt"><b>B.</b><code class="inl">margin</code> 不影响盒子大小，但会影响盒子的位置</span>
+        <span class="opt"><b>C.</b><code class="inl">padding</code> 的值可以是负数</span>
+        <span class="opt"><b>D.</b><code class="inl">margin</code> 的值可以是负数，也可以是 <code class="inl">auto</code></span>
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>下列可以开启 BFC 的方式有（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b>根元素</span><span class="opt"><b>B.</b>浮动元素</span><span class="opt"><b>C.</b><code class="inl">overflow:hidden</code> 的块元素</span><span class="opt"><b>D.</b><code class="inl">display:flow-root</code></span><span class="opt"><b>E.</b>行内块元素</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>下列属于 CSS3 新增长度单位的有（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">rem</code></span><span class="opt"><b>B.</b><code class="inl">vw</code></span><span class="opt"><b>C.</b><code class="inl">vh</code></span><span class="opt"><b>D.</b><code class="inl">em</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>下列关于过渡 <code class="inl">transition</code> 的说法，正确的有（　　）</span></div>
+      <div class="opts one">
+        <span class="opt"><b>A.</b><code class="inl">transition-property</code> 值为 <code class="inl">all</code> 时表示过渡所有能过渡的属性</span>
+        <span class="opt"><b>B.</b><code class="inl">transition-duration</code> 的默认值是 0</span>
+        <span class="opt"><b>C.</b>复合写法中设置一个时间表示 duration，两个时间分别是 duration 和 delay</span>
+        <span class="opt"><b>D.</b>所有 CSS 属性都支持过渡</span>
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>下列关于多媒体标签 <code class="inl">video</code> / <code class="inl">audio</code> 的说法，正确的有（　　）</span></div>
+      <div class="opts one">
+        <span class="opt"><b>A.</b>两者都是双标签</span>
+        <span class="opt"><b>B.</b><code class="inl">controls</code> 用于向用户显示播放控件</span>
+        <span class="opt"><b>C.</b>使用 <code class="inl">autoplay</code> 时会忽略 <code class="inl">preload</code> 属性</span>
+        <span class="opt"><b>D.</b><code class="inl">muted</code> 表示静音，<code class="inl">poster</code> 用于设置视频封面</span>
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>下列属于 HTML5 表单新增属性（或新增属性值）的有（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">placeholder</code></span><span class="opt"><b>B.</b><code class="inl">required</code></span><span class="opt"><b>C.</b><code class="inl">autofocus</code></span><span class="opt"><b>D.</b><code class="inl">novalidate</code></span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>下列属于 HTML 全局属性的有（　　）</span></div>
+      <div class="opts"><span class="opt"><b>A.</b><code class="inl">id</code></span><span class="opt"><b>B.</b><code class="inl">class</code></span><span class="opt"><b>C.</b><code class="inl">style</code></span><span class="opt"><b>D.</b><code class="inl">title</code></span><span class="opt"><b>E.</b><code class="inl">lang</code></span></div></li>
+
+  </ol>
+
+  <!-- ===================== 三、判断 ===================== -->
+  <h2 class="sec">三、判断题 <small>每题 1 分，共 15 分（正确打"√"，错误打"×"）</small></h2>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>HTML 标签名不区分大小写，但推荐使用小写。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>HTML 注释可以嵌套使用。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>一个元素的 class 属性可以写多个值，用空格隔开。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>多个元素的 id 属性值可以相同。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span><code class="inl">p</code> 标签中可以嵌套 <code class="inl">div</code> 标签。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>行内元素中可以写块级元素。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span><code class="inl">img</code> 标签的 <code class="inl">alt</code> 属性最主要的作用是让搜索引擎得知图片的内容。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>相对路径中的 <code class="inl">./</code> 可以省略不写。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span><code class="inl">li</code> 标签最好写在 <code class="inl">ul</code> 或 <code class="inl">ol</code> 中，不要单独使用。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span><code class="inl">table</code> 的 <code class="inl">border</code> 属性值的大小可以控制单元格边框的宽度。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>内部样式与外部样式优先级相同，后面的会覆盖前面的。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>通配选择器 <code class="inl">*</code> 的权重高于元素选择器。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span><code class="inl">visibility:hidden</code> 隐藏元素后，元素不再占据原来的位置。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>浮动元素会脱离文档流，并且能够完美设置四个方向的 margin 和 padding。（　　）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>只有定位的元素设置 <code class="inl">z-index</code> 才有效。（　　）</span></div></li>
+  </ol>
+
+  <!-- ===================== 四、填空 ===================== -->
+  <h2 class="sec">四、填空题 <small>每空 1 分，共 20 分</small></h2>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>CSS 的全称是<span class="blank"></span>；HTML 的全称是<span class="blank"></span>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>HTML 文档声明必须写在网页的<span class="blank"></span>，并且在 <code class="inl">html</code> 标签的<span class="blank"></span>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>为让浏览器正确渲染，需要用 <code class="inl">meta</code> 标签配合 <code class="inl">charset</code> 属性指定字符编码，写法为<span class="blank"></span>（写出完整标签）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span><code class="inl">img</code> 标签中，指定图片路径的属性是<span class="blank"></span>，用于图片描述的属性是<span class="blank"></span>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>超链接标签是<span class="blank"></span>，其中控制跳转时如何打开页面的属性是<span class="blank"></span>，其常用值有 <code class="inl">_self</code> 和<span class="blank"></span>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>有序列表使用<span class="blank"></span>标签，无序列表使用<span class="blank"></span>标签，自定义列表使用<span class="blank"></span>标签。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>表格中跨行使用<span class="blank"></span>属性，跨列使用<span class="blank"></span>属性。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>选择器权重 (a, b, c) 中，a 表示<span class="blank"></span>的个数，b 表示<span class="blank"></span>的个数，c 表示<span class="blank"></span>的个数。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>盒子模型由<span class="blank"></span>、<span class="blank"></span>、<span class="blank"></span>、<span class="blank"></span>四部分组成。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>让块级元素在父元素中水平居中，可以给该块级元素设置<span class="blank"></span>；让行内元素或行内块元素在父元素中水平居中，可以给父元素设置<span class="blank"></span>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>flex 布局中，改变主轴方向的属性是<span class="blank"></span>，设置主轴对齐方式的属性是<span class="blank"></span>，设置侧轴对齐方式（一行）的属性是<span class="blank"></span>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>开启 3D 空间使用<span class="blank"></span>属性；设置景深使用<span class="blank"></span>属性，且该属性要写在发生 3D 变换元素的<span class="blank"></span>上。</span></div></li>
+  </ol>
+
+  <!-- ===================== 五、简答 ===================== -->
+  <h2 class="sec">五、简答题 <small>每题 5 分，共 40 分</small></h2>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>简述 C/S 架构与 B/S 架构的区别。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>简述块级元素、行内元素、行内块元素三者在"是否独占一行""默认宽高""能否设置宽高"上的区别，并各举两个例子。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>简述 CSS 的三种编写位置，并说明各自的优缺点。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>什么是 margin 塌陷？如何解决？</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>简述元素浮动后的特点，并写出清除浮动的常用方案（至少三种）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>简述相对定位、绝对定位、固定定位、粘性定位的参考点，以及各自是否脱离文档流。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>什么是 BFC？开启 BFC 能解决哪些问题？请写出至少四种开启 BFC 的方式。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>简述 flex 布局中 <code class="inl">justify-content</code> 与 <code class="inl">align-items</code> 的作用与区别，并各写出三个常用值。</span></div></li>
+  </ol>
+
+  <!-- ===================== 六、代码题 ===================== -->
+  <h2 class="sec">六、代码阅读与编写题 <small>共 35 分</small></h2>
+  <ol class="q">
+
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>（10 分）写出下列选择器的含义，并计算其权重 (a, b, c)。</span></div>
+      <div class="sub-q">
+        （1）<code class="inl">ul&gt;li</code>　　（2）<code class="inl">#atguigu .slogan a:hover</code>　　（3）<code class="inl">.subject li.front-end</code><br>
+        （4）<code class="inl">div+p</code>　　（5）<code class="inl">div[title^="a"]</code>
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>（8 分）用 HTML 编写一个学生信息表格，要求：</span></div>
+      <div class="sub-q">
+        ① 使用完整表格结构（表格标题、表格头部、表格主体）；<br>
+        ② 表头为"姓名、性别、年龄"；<br>
+        ③ 至少两行数据；<br>
+        ④ 表格显示边框。
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>（8 分）按要求编写 CSS 代码：</span></div>
+      <div class="sub-q">
+        （1）制作一个 200px × 200px 的盒子，红色背景，圆角 20px，并添加 <code class="inl">10px 10px 20px 3px blue inset</code> 的盒子阴影；<br>
+        （2）让该盒子在父元素中水平垂直居中（使用绝对定位 + transform 实现）。
+      </div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>（5 分）补全代码：父容器 400px × 400px，使用 flex 布局让内部 <code class="inl">.inner</code> 元素水平垂直居中（写出两种方式）。</span></div>
+      <pre>.outer { width: 400px; height: 400px; background-color: #888; /* 请补充 */ }
+.inner { width: 100px; height: 100px; background-color: orange; /* 请补充 */ }</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>（4 分）写出媒体查询代码：当屏幕宽度小于等于 768px 时，让 <code class="inl">.box</code> 的宽度变为 100%；当屏幕宽度在 768px ~ 1200px 之间时，宽度为 50%。</span></div></li>
+
+  </ol>
+
+  <!-- ===================== 参考答案 ===================== -->
+  <div class="answers" id="answers">
+
+    <h2 class="sec">参考答案与解析 <small>阅卷用</small></h2>
+
+    <div class="ans-block">
+      <h3>一、单项选择题（每题 2 分，共 60 分）</h3>
+      <table>
+        <tr><th>题号</th><th>答案</th><th>题号</th><th>答案</th><th>题号</th><th>答案</th><th>题号</th><th>答案</th><th>题号</th><th>答案</th></tr>
+        <tr><td>1</td><td>C</td><td>7</td><td>C</td><td>13</td><td>D</td><td>19</td><td>A</td><td>25</td><td>A</td></tr>
+        <tr><td>2</td><td>A</td><td>8</td><td>B</td><td>14</td><td>B</td><td>20</td><td>D</td><td>26</td><td>C</td></tr>
+        <tr><td>3</td><td>B</td><td>9</td><td>C</td><td>15</td><td>B</td><td>21</td><td>B</td><td>27</td><td>C</td></tr>
+        <tr><td>4</td><td>D</td><td>10</td><td>C</td><td>16</td><td>B</td><td>22</td><td>C</td><td>28</td><td>B</td></tr>
+        <tr><td>5</td><td>B</td><td>11</td><td>D</td><td>17</td><td>B</td><td>23</td><td>C</td><td>29</td><td>B</td></tr>
+        <tr><td>6</td><td>C</td><td>12</td><td>B</td><td>18</td><td>D</td><td>24</td><td>A</td><td>30</td><td>D</td></tr>
+      </table>
+      <div class="row exp" style="margin-top:10px;">
+        <b>重点解析：</b><br>
+        1. <code class="inl">center</code> 是 HTML4 的排版标签，不是 HTML5 新增语义化标签。<br>
+        3. 文档声明必须在网页第一行且位于 <code class="inl">html</code> 标签外侧。<br>
+        5. 权重比较从左到右逐位对比，a 位 1 &gt; 0，故 (1,0,0) 更大。<br>
+        8. margin 塌陷指"第一个子元素的上 margin / 最后一个子元素的下 margin 作用在父元素上"；A 描述的是 margin 合并。<br>
+        11. B 方案（四方向为 0 + margin:auto）必须同时设置宽高才生效；C 方案（50% + translate(-50%,-50%)）同样可行，故选 D。<br>
+        13. 能继承的属性都是"不影响布局"的（字体、文本、颜色等），<code class="inl">border</code> 属于盒子模型相关属性，不可继承。<br>
+        18. <code class="inl">text-overflow</code> 生效只要求"块容器 + overflow 非 visible + white-space:nowrap"，与 <code class="inl">text-align</code> 无关。<br>
+        23. <code class="inl">email</code>、<code class="inl">url</code>、<code class="inl">number</code> 提交时会验证格式（为空则不验证）；<code class="inl">search</code>、<code class="inl">tel</code>、<code class="inl">range</code> 等不验证。<br>
+        26. 行内元素的左右内边距可以完美设置，<b>上下内边距不能完美设置</b>，故 C 错误。<br>
+        30. BFC 能解决 margin 塌陷、被浮动元素覆盖、浮动导致的高度塌陷；行内元素上下 margin 无效是显示模式本身的限制，与 BFC 无关。
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>二、多项选择题（每题 3 分，共 30 分）</h3>
+      <table>
+        <tr><th>题号</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+        <tr><td>答案</td><td>ABDE</td><td>ABC</td><td>ABCD</td><td>ABD</td><td>ABCDE</td><td>ABC</td><td>ABC</td><td>ABCD</td><td>ABCD</td><td>ABCDE</td></tr>
+      </table>
+      <div class="row exp" style="margin-top:10px;">
+        <b>重点解析：</b><br>
+        1. <code class="inl">center</code> 不属于 HTML5 新增语义化标签（H5 新增为 header、footer、nav、article、section、aside、main、hgroup）。<br>
+        4. <code class="inl">padding</code> 的值<b>不能为负数</b>，故 C 错误；<code class="inl">margin</code> 可以为负数，也可以为 auto。<br>
+        6. <code class="inl">em</code> 是 CSS2 就有的单位（相对元素自身 font-size），不属于 CSS3 新增。<br>
+        7. 只有"值为数字、或值能转为数字"的属性才支持过渡（如颜色、长度、百分比、z-index、opacity、2D/3D 变换、阴影），并非所有属性，故 D 错误。<br>
+        8. 四个选项均正确，注意"使用 autoplay 时会忽略 preload"。
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>三、判断题（每题 1 分，共 15 分）</h3>
+      <table>
+        <tr><th>题号</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr>
+        <tr><td>答案</td><td>√</td><td>×</td><td>√</td><td>×</td><td>×</td><td>×</td><td>√</td><td>√</td><td>√</td><td>×</td><td>√</td><td>×</td><td>×</td><td>√</td><td>√</td></tr>
+      </table>
+      <div class="row exp" style="margin-top:10px;">
+        2. 注释不可嵌套。　4. id 不能重复。　5. <code class="inl">p</code> 中不能写 <code class="inl">div</code>。　6. 行内元素中不能写块级元素。<br>
+        10. <code class="inl">border</code> 只控制表格最外侧边框宽度，单元格边框宽度需靠 CSS 控制。　12. <code class="inl">*</code> 权重最低。<br>
+        13. <code class="inl">visibility:hidden</code> 元素看不见但<b>仍占位</b>；<code class="inl">display:none</code> 才彻底不占位。
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>四、填空题（每空 1 分，共 20 分）</h3>
+      <div class="row">1. 层叠样式表（Cascading Style Sheets）／超文本标记语言（HyperText Markup Language）</div>
+      <div class="row">2. 第一行／外侧</div>
+      <div class="row">3. <code class="inl">&lt;meta charset="UTF-8"&gt;</code></div>
+      <div class="row">4. <code class="inl">src</code>／<code class="inl">alt</code></div>
+      <div class="row">5. <code class="inl">&lt;a&gt;</code>／<code class="inl">target</code>／<code class="inl">_blank</code></div>
+      <div class="row">6. <code class="inl">ol</code>／<code class="inl">ul</code>／<code class="inl">dl</code></div>
+      <div class="row">7. <code class="inl">rowspan</code>／<code class="inl">colspan</code></div>
+      <div class="row">8. ID 选择器／类、伪类、属性选择器／元素、伪元素选择器</div>
+      <div class="row">9. margin（外边距）／border（边框）／padding（内边距）／content（内容）（顺序可互换）</div>
+      <div class="row">10. <code class="inl">margin: 0 auto;</code>／<code class="inl">text-align: center;</code></div>
+      <div class="row">11. <code class="inl">flex-direction</code>／<code class="inl">justify-content</code>／<code class="inl">align-items</code></div>
+      <div class="row">12. <code class="inl">transform-style: preserve-3d</code>／<code class="inl">perspective</code>／父元素</div>
+    </div>
+
+    <div class="ans-block">
+      <h3>五、简答题（每题 5 分，共 40 分）</h3>
+      <div class="row"><b>1. C/S 与 B/S 架构的区别</b></div>
+      <div class="row exp">
+        C/S（client-server）：需要安装、偶尔更新、不跨平台、开发更具针对性；<br>
+        B/S（browser-server）：无需安装、无需更新、可跨平台、开发更具通用性。<br>
+        前端工程师主要负责编写 B/S 架构中的网页（呈现界面、实现交互）。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>2. 三种显示模式的区别</b></div>
+      <div class="row exp">
+        ① 块级元素（block）：独占一行；默认宽度撑满父元素、默认高度由内容撑开；可以设置宽高。例：<code class="inl">div</code>、<code class="inl">p</code>。<br>
+        ② 行内元素（inline）：不独占一行；默认宽高都由内容撑开；<b>无法</b>通过 CSS 设置宽高。例：<code class="inl">span</code>、<code class="inl">a</code>。<br>
+        ③ 行内块元素（inline-block）：不独占一行；默认宽高都由内容撑开；可以设置宽高。例：<code class="inl">img</code>、<code class="inl">input</code>。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>3. CSS 的三种编写位置</b></div>
+      <div class="row exp">
+        ① 行内样式（<code class="inl">style</code> 属性）：优先级最高；但结构与样式未分离、代码结构混乱、样式不能复用，使用频率很低，作用范围仅当前标签。<br>
+        ② 内部样式（<code class="inl">&lt;style&gt;</code>，一般放 head 中）：样式可复用、结构清晰；但未彻底分离、不能多页面复用，使用频率一般，作用范围当前页面。<br>
+        ③ 外部样式（<code class="inl">.css</code> + <code class="inl">&lt;link&gt;</code>）：可多页面复用、结构清晰、可触发浏览器缓存机制、彻底分离；缺点是需要引入。使用频率最高，实际开发几乎都用它。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>4. margin 塌陷</b></div>
+      <div class="row exp">
+        含义：第一个子元素的上 margin 会作用在父元素上，最后一个子元素的下 margin 会作用在父元素上。<br>
+        解决：①给父元素设置不为 0 的 padding；②给父元素设置宽度不为 0 的 border；③给父元素设置 <code class="inl">overflow:hidden</code>（开启 BFC）。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>5. 浮动的特点与清除浮动</b></div>
+      <div class="row exp">
+        特点：脱离文档流；不管浮动前是什么元素，浮动后默认宽高都由内容撑开且可设置宽高；不独占一行，可与其他元素共用一行；不会 margin 合并、也不会 margin 塌陷，能完美设置四个方向的 margin 和 padding；不会像行内块一样被当作文本处理。<br>
+        影响：后面的兄弟元素会占据浮动元素之前的位置（显示在其下面）；父元素不能被撑开，导致高度塌陷。<br>
+        清除方案：①给父元素指定高度；②给父元素也设置浮动；③给父元素设置 <code class="inl">overflow:hidden</code>；④在所有浮动元素最后添加块级元素并设置 <code class="inl">clear:both</code>；⑤给浮动元素的父元素设置伪元素清除浮动（推荐）。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>6. 四种定位的对比</b></div>
+      <div class="row exp">
+        相对定位 <code class="inl">relative</code>：参考自己原来的位置；<b>不</b>脱离文档流。<br>
+        绝对定位 <code class="inl">absolute</code>：参考它的包含块（第一个拥有定位属性的祖先元素，都没有则整个页面）；脱离文档流。<br>
+        固定定位 <code class="inl">fixed</code>：参考视口；脱离文档流。<br>
+        粘性定位 <code class="inl">sticky</code>：参考离它最近的一个拥有"滚动机制"的祖先元素；<b>不</b>脱离文档流，最常用的是 top 值。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>7. BFC</b></div>
+      <div class="row exp">
+        含义：BFC 即块级格式上下文（Block Formatting Context），可以理解为元素的一个"特异功能"，默认关闭，满足某些条件后即被激活（创建了 BFC）。<br>
+        能解决：①子元素不再产生 margin 塌陷；②自身不会被其他浮动元素覆盖；③子元素浮动时自身高度也不会塌陷。<br>
+        开启方式（任答四种即可）：根元素；浮动元素；绝对/固定定位元素；行内块元素；表格单元格；<code class="inl">overflow</code> 值不为 visible 的块元素；伸缩项目；多列容器；<code class="inl">column-span:all</code> 的元素；<code class="inl">display:flow-root</code>。
+      </div>
+      <div class="row" style="margin-top:8px;"><b>8. justify-content 与 align-items</b></div>
+      <div class="row exp">
+        区别：<code class="inl">justify-content</code> 控制<b>主轴</b>方向的对齐方式；<code class="inl">align-items</code> 控制<b>侧轴</b>方向的对齐方式（针对一行的情况，多行用 <code class="inl">align-content</code>）。<br>
+        <code class="inl">justify-content</code> 常用值：flex-start（默认）、flex-end、center、space-between（最常用）、space-around、space-evenly。<br>
+        <code class="inl">align-items</code> 常用值：flex-start、flex-end、center、baseline、stretch（默认）。
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>六、代码阅读与编写题（共 35 分）</h3>
+
+      <div class="row"><b>1.（10 分）选择器含义与权重</b></div>
+      <pre>（1）ul&gt;li                含义：选中 ul 的子代 li 元素                     权重 (0,0,2)
+（2）#atguigu .slogan a:hover
+                         含义：选中 id 为 atguigu 的元素内部、
+                               类名为 slogan 的元素内部的、处于悬停状态的 a 元素
+                                                                    权重 (1,2,1)
+（3）.subject li.front-end 含义：选中类名为 subject 的元素内部、
+                               同时具有 front-end 类名的 li 元素     权重 (0,2,1)
+（4）div+p                 含义：选中 div 后面紧邻的那个兄弟 p 元素        权重 (0,0,2)
+（5）div[title^="a"]       含义：选中具有 title 属性、
+                               且 title 值以 a 开头的 div 元素         权重 (0,1,1)</pre>
+
+      <div class="row" style="margin-top:8px;"><b>2.（8 分）学生信息表格</b></div>
+      <pre>&lt;table border="1"&gt;
+    &lt;caption&gt;学生信息&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;姓名&lt;/th&gt;
+            &lt;th&gt;性别&lt;/th&gt;
+            &lt;th&gt;年龄&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;张三&lt;/td&gt;
+            &lt;td&gt;男&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;李四&lt;/td&gt;
+            &lt;td&gt;女&lt;/td&gt;
+            &lt;td&gt;20&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>3.（8 分）CSS 代码</b></div>
+      <pre>.box {
+    /* （1）盒子样式 */
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px 3px blue inset;
+
+    /* （2）在父元素中水平垂直居中 */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>4.（5 分）flex 水平垂直居中（两种方式）</b></div>
+      <pre>/* 方式一：justify-content + align-items */
+.outer {
+    width: 400px;
+    height: 400px;
+    background-color: #888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner { width: 100px; height: 100px; background-color: orange; }
+
+/* 方式二：父容器开启 flex，子元素 margin:auto */
+.outer {
+    width: 400px;
+    height: 400px;
+    background-color: #888;
+    display: flex;
+}
+.inner { width: 100px; height: 100px; background-color: orange; margin: auto; }</pre>
+
+      <div class="row" style="margin-top:8px;"><b>5.（4 分）媒体查询</b></div>
+      <pre>@media screen and (max-width: 768px) {
+    .box { width: 100%; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .box { width: 50%; }
+}</pre>
+    </div>
+
+  </div>
+
+  <!-- ===================== 知识点覆盖对照 ===================== -->
+  <h2 class="sec">附：知识点覆盖对照表</h2>
+  <table class="cover-table">
+    <tr><th>知识模块</th><th>覆盖的知识点</th><th>对应题号</th></tr>
+    <tr>
+      <td>HTML4</td>
+      <td>计算机基础与 C/S、B/S 架构；浏览器与内核；HTML 概念与国际组织；标签、属性、双/单标签；基本结构与文档声明；注释；字符编码与 meta；lang 语言设置；排版标签与语义化；块级/行内元素；文本标签；img 与 alt；路径与图片格式；超链接与锚点；列表；表格与跨行跨列；br/hr/pre；表单与各类控件、label、fieldset；iframe；HTML 实体；全局属性；meta 元信息</td>
+      <td>单选 3、4、6、19(部分)、22、24、26；多选 3、10；判断 1~10；填空 1~7；简答 1~3；代码 2</td>
+    </tr>
+    <tr>
+      <td>HTML5</td>
+      <td>HTML5 简介与兼容性；新增语义化标签（含 article/section 区别）；meter / progress；datalist / details / summary；ruby / rt / mark；表单新增属性与 input 新增 type；video / audio 及属性；新增全局属性；html5shiv 与条件注释</td>
+      <td>单选 1、19、20、21、23；多选 1、8、9；简答 7(部分)</td>
+    </tr>
+    <tr>
+      <td>CSS2</td>
+      <td>CSS 概念与三种编写位置及优先级；语法规范与代码风格；基本选择器与复合选择器；伪类与伪元素；权重计算；层叠性、继承性、优先级；颜色表示；字体属性；文本属性（含 line-height、vertical-align）；列表、表格、背景、鼠标属性；盒子模型（content/padding/border/margin）；margin 塌陷与合并；overflow；隐藏元素；默认样式与重置；浮动与清除浮动；四种定位与 z-index；版心与常用布局名词</td>
+      <td>单选 2、5、7、8、9、10、11、13、24、25、26、27、29；多选 2、3、4、6；判断 11~15；填空 1、8~10；简答 2~6；代码 1、3</td>
+    </tr>
+    <tr>
+      <td>CSS3</td>
+      <td>CSS3 概述与私有前缀；新增长度单位（rem/vw/vh/vmax/vmin）；box-sizing / resize / box-shadow / opacity；背景新增属性（origin/clip/size/复合/多背景）；border-radius 与外轮廓；文本新增（text-shadow / white-space / text-overflow / text-decoration 升级 / 文字描边）；渐变（线性、径向、重复）；@font-face 与字体图标；2D 变换与 transform-origin；3D 变换（3D 空间、景深、位移/旋转/缩放、背部可见性）；transition 过渡；animation 动画；多列布局；flex 伸缩盒模型；媒体查询响应式；BFC</td>
+      <td>单选 12、14、15、16、17、18、28、30；多选 5、6、7；填空 11、12；简答 7、8；代码 4、5</td>
+    </tr>
+  </table>
+
+  <div class="foot">
+    HTML + CSS 综合测试卷 · 依据《HTML4 笔记》《HTML5 笔记》《CSS2 笔记》《CSS3 笔记》编制 · 共 200 分
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('toggleBtn');
+    btn.addEventListener('click', function () {
+      var on = document.body.classList.toggle('show-ans');
+      btn.textContent = on ? '隐藏参考答案' : '显示参考答案';
+    });
+  })();
+</script>
+</body>
+</html>

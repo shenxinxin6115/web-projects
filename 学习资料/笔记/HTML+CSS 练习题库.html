@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML + CSS 练习题库（无选择题 · 全知识点覆盖）</title>
+<style>
+  :root{
+    --ink:#1f2328;
+    --ink-2:#4a5158;
+    --ink-3:#6b7280;
+    --line:#dfe3e8;
+    --line-2:#eef1f4;
+    --bg:#f5f6f8;
+    --paper:#ffffff;
+    --accent:#1f6feb;
+    --accent-soft:#eaf2ff;
+    --green:#1a7f4b;
+    --green-soft:#e9f7ef;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;padding:28px 16px 64px;background:var(--bg);color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px;line-height:1.85;
+  }
+  .paper{
+    max-width:920px;margin:0 auto;background:var(--paper);border:1px solid var(--line);
+    border-radius:10px;padding:40px 48px 56px;
+    box-shadow:0 1px 3px rgba(16,24,40,.06),0 12px 32px rgba(16,24,40,.06);
+  }
+  .head{text-align:center;border-bottom:2px solid var(--ink);padding-bottom:18px;}
+  .head h1{margin:0 0 6px;font-size:25px;letter-spacing:.5px;}
+  .head .sub{margin:0;color:var(--ink-3);font-size:14px;}
+  .tip{
+    margin:20px 0 0;padding:12px 16px;border-radius:8px;
+    background:var(--accent-soft);border:1px solid #cfe0ff;color:#123a70;font-size:13.5px;
+  }
+  .toolbar{display:flex;gap:10px;justify-content:flex-end;margin:16px 0 0;}
+  .btn{
+    appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink-2);
+    padding:7px 14px;border-radius:7px;font-size:13.5px;cursor:pointer;font-family:inherit;transition:.15s;
+  }
+  .btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
+  h2.sec{
+    margin:42px 0 6px;padding:9px 0 9px 14px;font-size:18px;
+    border-left:4px solid var(--accent);background:linear-gradient(90deg,#f7faff,transparent);
+  }
+  h3.sub{
+    margin:26px 0 8px;font-size:15.5px;color:#123a70;
+    padding:5px 10px;background:#f4f8ff;border-radius:6px;display:inline-block;
+  }
+  .sec-note{margin:0 0 12px;color:var(--ink-3);font-size:13.5px;}
+
+  ol.q{list-style:none;margin:0;padding:0;}
+  .q-item{margin:0 0 12px;}
+  .q-item > .stem{display:flex;gap:8px;}
+  .q-item .no{flex:0 0 auto;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .sub-q{margin:5px 0 0 26px;color:var(--ink-2);}
+  .blank{display:inline-block;min-width:76px;border-bottom:1px solid var(--ink-3);margin:0 4px;}
+
+  pre{
+    margin:8px 0 8px 26px;padding:12px 14px;background:#f8f9fb;border:1px solid var(--line-2);
+    border-left:3px solid #c8d2dd;border-radius:6px;overflow-x:auto;
+    font-family:Consolas,"Courier New",ui-monospace,monospace;font-size:13px;line-height:1.7;color:#243b53;
+  }
+  code.inl{
+    background:#f1f3f6;border:1px solid var(--line-2);border-radius:4px;
+    padding:1px 5px;font-family:Consolas,"Courier New",monospace;font-size:13px;color:#1b4b8f;
+  }
+  .tag{display:inline-block;background:#f0f4f9;border:1px solid #dde5ee;border-radius:4px;
+       padding:0 6px;font-size:12.5px;color:#4a5158;margin-right:6px;}
+
+  /* 答案区 */
+  .answers{display:none;margin-top:14px;}
+  body.show-ans .answers{display:block;}
+  .ans-block{margin:0 0 18px;padding:14px 18px;border-radius:8px;background:var(--green-soft);border:1px solid #c8e9d5;}
+  .ans-block h3{margin:0 0 8px;font-size:15px;color:var(--green);background:none;padding:0;display:block;}
+  .ans-block .row{font-size:14px;color:#134a2d;margin:2px 0;}
+  .ans-block .row b{color:var(--green);}
+  .ans-block .exp{color:#2c5a41;font-size:13.5px;}
+  .ans-block pre{background:#fff;border-color:#c8e9d5;border-left-color:#7cc79a;color:#134a2d;margin-left:0;}
+  .ans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 22px;font-size:13.5px;color:#134a2d;}
+  .ans-grid span b{color:var(--green);}
+
+  .foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--line-2);color:var(--ink-3);font-size:12.5px;text-align:center;}
+
+  @media (max-width:720px){
+    body{padding:14px 8px 40px;}
+    .paper{padding:24px 18px 36px;border-radius:8px;}
+    .head h1{font-size:20px;}
+    pre{margin-left:0;}
+    .sub-q{margin-left:0;}
+    .ans-grid{grid-template-columns:1fr;}
+  }
+  @media print{
+    @page{size:A4;margin:14mm 12mm;}
+    body{background:#fff;padding:0;font-size:11.5pt;line-height:1.6;}
+    .paper{box-shadow:none;border:0;border-radius:0;max-width:none;padding:0;}
+    .toolbar,.tip{display:none;}
+    .answers{display:block !important;page-break-before:always;}
+    .ans-block{background:#fff;border:1px solid #bbb;}
+    .ans-block h3,.ans-block .row,.ans-block .exp{color:#000;}
+    .q-item{page-break-inside:avoid;}
+    h2.sec,h3.sub{page-break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <div class="head">
+    <h1>HTML + CSS 练习题库</h1>
+    <p class="sub">无选择题 · 不计分 · 全知识点覆盖 · 面向动手练习</p>
+  </div>
+
+  <div class="tip">
+    <b>使用说明：</b>本册共 <b>7 个部分</b>，题量按"能覆盖到每一个知识点"编排，重点在<b>填空回忆</b>与<b>手写代码</b>。
+    建议做法：第一部分到第四部分先合上答案默写，第五、六部分直接敲进编辑器看效果，第七部分当作小项目独立完成。
+    右上角按钮可显示／隐藏参考答案。
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" id="toggleBtn" type="button">显示参考答案</button>
+    <button class="btn" type="button" onclick="window.print()">打印 / 导出 PDF</button>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- 一、标签与属性填空 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第一部分　标签与属性填空</h2>
+  <p class="sec-note">凭记忆写出对应的标签名或属性名，写不出来说明该知识点需要回看笔记。</p>
+
+  <h3 class="sub">（一）根据语义写出 HTML 标签名</h3>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>整个页面或部分区域的头部：<span class="blank"></span>；底部：<span class="blank"></span>；导航：<span class="blank"></span>；侧边栏：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>文章、帖子、新闻等独立完整的内容块：<span class="blank"></span>；页面中的某段文字（通常内部含标题）：<span class="blank"></span>；文档的主要内容：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>定义已知范围内的标量测量（如电量、磁盘用量）：<span class="blank"></span>；显示任务完成进度的指示器：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>用于搜索框的关键字提示：<span class="blank"></span>；用于展示问题和答案：<span class="blank"></span>，其中指定问题的子标签是：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>包裹需要注音的文字：<span class="blank"></span>；写注音的子标签：<span class="blank"></span>；W3C 建议用于标记搜索结果关键字的标签：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>表格标题：<span class="blank"></span>；表格头部：<span class="blank"></span>；表格主体：<span class="blank"></span>；表格脚注：<span class="blank"></span>；表头单元格：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>自定义列表的术语名称：<span class="blank"></span>；术语描述：<span class="blank"></span>；有序列表：<span class="blank"></span>；无序列表：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>换行：<span class="blank"></span>；分隔线：<span class="blank"></span>；按原文显示（常用于嵌入大段代码）：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>文本域：<span class="blank"></span>；下拉框：<span class="blank"></span>；下拉选项：<span class="blank"></span>；为表单控件分组：<span class="blank"></span>；分组标题：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>在网页中嵌入其他文件：<span class="blank"></span>；文本注音组合中的外层标签：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>要着重阅读的内容：<span class="blank"></span>；十分重要的内容（语气更强）：<span class="blank"></span>；无语义的通用容器：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>删除的文本：<span class="blank"></span>；插入的文本：<span class="blank"></span>；下标：<span class="blank"></span>；上标：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>一段代码：<span class="blank"></span>；键盘文本：<span class="blank"></span>；标记变量：<span class="blank"></span>；缩写（配合 title）：<span class="blank"></span>；更改文本方向（配合 dir）：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>长引用：<span class="blank"></span>；短引用：<span class="blank"></span>；地址信息：<span class="blank"></span>；作品标题：<span class="blank"></span>；特殊术语：<span class="blank"></span></span></div></li>
+  </ol>
+
+  <h3 class="sub">（二）根据功能写出 CSS 属性名</h3>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>文字大小：<span class="blank"></span>；字体族：<span class="blank"></span>；字体风格（斜体）：<span class="blank"></span>；字体粗细：<span class="blank"></span>；字体复合：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>文字颜色：<span class="blank"></span>；字母间距：<span class="blank"></span>；单词间距：<span class="blank"></span>；文本装饰线：<span class="blank"></span>；首行缩进：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>文本水平对齐：<span class="blank"></span>；行高：<span class="blank"></span>；行内/单元格内文字的垂直对齐：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>列表符号：<span class="blank"></span>；列表符号位置：<span class="blank"></span>；自定义列表符号：<span class="blank"></span>；列表复合：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>合并单元格边框：<span class="blank"></span>；单元格间距：<span class="blank"></span>；设置列宽规则：<span class="blank"></span>；表格标题位置：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>背景颜色：<span class="blank"></span>；背景图片：<span class="blank"></span>；背景重复方式：<span class="blank"></span>；背景图位置：<span class="blank"></span>；背景复合：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>鼠标光标样式：<span class="blank"></span>；修改元素显示模式：<span class="blank"></span>；处理内容溢出：<span class="blank"></span>；隐藏元素（仍占位）：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>内容区宽度：<span class="blank"></span>；内容区最大宽度：<span class="blank"></span>；内容区高度：<span class="blank"></span>；内容区最小高度：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>内边距（四个方向）：<span class="blank"></span>；内边距复合：<span class="blank"></span>；外边距（四个方向）：<span class="blank"></span>；外边距复合：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>边框线风格：<span class="blank"></span>；边框线宽度：<span class="blank"></span>；边框线颜色：<span class="blank"></span>；边框复合：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>设置浮动：<span class="blank"></span>；清除浮动：<span class="blank"></span>；设置定位方式：<span class="blank"></span>；调整定位层级：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>设置盒模型类型：<span class="blank"></span>；允许用户调节元素尺寸：<span class="blank"></span>；盒子阴影：<span class="blank"></span>；元素整体不透明度：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>背景图原点：<span class="blank"></span>；背景图裁剪区域：<span class="blank"></span>；背景图尺寸：<span class="blank"></span>；边框圆角：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>文本阴影：<span class="blank"></span>；文本换行方式：<span class="blank"></span>；文本溢出呈现模式：<span class="blank"></span>；文字描边宽度：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>过渡属性：<span class="blank"></span>；过渡持续时间：<span class="blank"></span>；过渡延迟：<span class="blank"></span>；过渡类型：<span class="blank"></span>；过渡复合：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">16.</span><span>定义关键帧的语法：<span class="blank"></span>；动画名称：<span class="blank"></span>；动画时长：<span class="blank"></span>；播放次数：<span class="blank"></span>；播放方向：<span class="blank"></span>；动画外状态：<span class="blank"></span>；播放状态：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">17.</span><span>变换属性：<span class="blank"></span>；变换原点：<span class="blank"></span>；开启 3D 空间：<span class="blank"></span>；设置景深：<span class="blank"></span>；透视点位置：<span class="blank"></span>；背部可见性：<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">18.</span><span>多列布局中：指定列数<span class="blank"></span>；指定列宽<span class="blank"></span>；列间距<span class="blank"></span>；是否跨列<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">19.</span><span>flex 中：主轴方向<span class="blank"></span>；主轴换行<span class="blank"></span>；复合属性<span class="blank"></span>；主轴对齐<span class="blank"></span>；侧轴对齐（一行）<span class="blank"></span>；侧轴对齐（多行）<span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">20.</span><span>flex 中：基准长度<span class="blank"></span>；放大比例<span class="blank"></span>；压缩比例<span class="blank"></span>；复合属性<span class="blank"></span>；排列顺序<span class="blank"></span>；单独对齐<span class="blank"></span></span></div></li>
+  </ol>
+
+  <h3 class="sub">（三）属性名与属性值配对填空</h3>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span><code class="inl">img</code> 标签中：图片路径用 <span class="blank"></span>，图片描述用 <span class="blank"></span>，宽度用 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span><code class="inl">a</code> 标签中：跳转目标用 <span class="blank"></span>，本窗口打开取值 <span class="blank"></span>，新窗口打开取值 <span class="blank"></span>，强制下载用 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>设置锚点的两种方式：给 <code class="inl">a</code> 加 <span class="blank"></span> 属性，或给其他标签加 <span class="blank"></span> 属性；回到页面顶部写 <span class="blank"></span>；刷新本页写 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>表格跨行用 <span class="blank"></span>，跨列用 <span class="blank"></span>；控制表格最外侧边框宽度用 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>输入框：数据名称用 <span class="blank"></span>，默认输入值用 <span class="blank"></span>，最大可输入长度用 <span class="blank"></span>，提示文字用 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>让单选/复选框默认选中用 <span class="blank"></span>；让下拉选项默认选中用 <span class="blank"></span>；禁用表单控件用 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>文本域中指定行数用 <span class="blank"></span>（影响高度），列数用 <span class="blank"></span>（影响宽度）；文本域不能写 <span class="blank"></span> 属性</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span><code class="inl">button</code> 标签的 <code class="inl">type</code> 默认值是 <span class="blank"></span>；用 <code class="inl">input</code> 写按钮时，按钮文字用 <span class="blank"></span> 属性指定</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span><code class="inl">label</code> 与表单控件关联的两种方式：<code class="inl">for</code> 的值等于控件的 <span class="blank"></span>；或把控件 <span class="blank"></span> 在 label 标签里面</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span><code class="inl">form</code> 的 <code class="inl">method</code> 常用值有 <span class="blank"></span> 和 <span class="blank"></span>；HTML5 中让表单提交时不验证的属性是 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>视频/音频标签中：显示播放控件用 <span class="blank"></span>，静音用 <span class="blank"></span>，自动播放用 <span class="blank"></span>，循环播放用 <span class="blank"></span>，视频封面用 <span class="blank"></span></span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>HTML5 新增全局属性：元素是否可被用户编辑 <span class="blank"></span>；元素是否可拖动 <span class="blank"></span>；隐藏元素 <span class="blank"></span>；拼写检查 <span class="blank"></span>；存储私有数据 <span class="blank"></span></span></div></li>
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 二、判断题 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第二部分　判断题</h2>
+  <p class="sec-note">判断对错，错的要能说出错在哪里。</p>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>HTML 标签名不区分大小写，属性名和属性值也不区分大小写，但都推荐小写。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>一个标签中可以写两个同名属性，两个都会生效。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>【查看网页源代码】看到的是程序员编写的源代码，【检查】看到的是浏览器处理后的源代码。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>HTML 注释可以嵌套使用。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>网页存储时用什么编码，读取时就必须用什么解码，否则会出现乱码。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>编码时应该统一采用 GBK，因为它是收录汉字最多的字符集。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>元素的默认效果不重要，语义才是最重要的。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>块级元素中几乎什么都能写，行内元素中也能写块级元素。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>一个元素的 class 属性可以写多个值，多个值之间用空格隔开。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>一个元素可以同时拥有 id 和 class 属性。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>相对路径中的 <code class="inl">./</code> 可以省略不写。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>使用网络绝对路径引入图片时，若服务器开启了防盗链，会造成图片引入失败。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>gif 格式支持透明背景，也支持动态图，但仅支持 256 种颜色。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>webp 格式兼具多种格式的优点，但兼容性不太好。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>多个空格、多个回车在网页中会被浏览器解析成多个空格。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">16.</span><span><code class="inl">a</code> 元素可以包裹除它自身外的任何元素。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">17.</span><span>表格的 <code class="inl">border</code> 属性值可以控制单元格边框的宽度。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">18.</span><span>给某个 <code class="inl">td</code> 设置了宽度之后，它所在那一列的宽度就确定了。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">19.</span><span>应该用 <code class="inl">&lt;br&gt;</code> 来增加文本之间的行间隔。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">20.</span><span>行内样式、内部样式、外部样式三者的优先级是：行内 &gt; 内部 = 外部。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">21.</span><span>同一个样式表中，后面的样式会覆盖前面的样式。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">22.</span><span>通配选择器 <code class="inl">*</code> 的权重高于元素选择器。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">23.</span><span>并集选择器的权重计算时，每一个部分是分开算的。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">24.</span><span>继承样式时，优先继承离得近的祖先元素。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">25.</span><span><code class="inl">border</code>、<code class="inl">background</code>、<code class="inl">padding</code>、<code class="inl">margin</code> 这些属性都可以被继承。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">26.</span><span>元素的默认样式优先级高于继承的样式。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">27.</span><span><code class="inl">line-height</code> 的值可以为负数。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">28.</span><span><code class="inl">vertical-align</code> 可以控制块元素的垂直对齐。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">29.</span><span><code class="inl">padding</code> 的值不能为负数，<code class="inl">margin</code> 的值可以为负数。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">30.</span><span>行内元素的左右内边距可以完美设置，上下内边距不能完美设置。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">31.</span><span>行内元素可以完美设置四个方向的 margin。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">32.</span><span>给块级元素设置左右 <code class="inl">margin</code> 都为 <code class="inl">auto</code>，可以让它在父元素中水平居中。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">33.</span><span>margin 合并问题需要通过给父元素设置 <code class="inl">overflow:hidden</code> 来解决。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">34.</span><span><code class="inl">visibility:hidden</code> 隐藏元素后，元素依然占据原来的位置。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">35.</span><span>浮动元素会脱离文档流，且不会发生 margin 合并和 margin 塌陷。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">36.</span><span>浮动元素的父元素宽度依然能够束缚浮动的元素。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">37.</span><span>相对定位会脱离文档流，并对其他元素产生影响。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">38.</span><span>绝对定位元素与浮动同时设置时，浮动生效，以浮动为主。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">39.</span><span>粘性定位不会脱离文档流，最常用的值是 top。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">40.</span><span>只要设置了 <code class="inl">z-index</code> 就能调整元素的显示层级。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">41.</span><span>发生相对定位后，元素依然是之前的显示模式；发生绝对定位后，元素变成"定位元素"。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">42.</span><span>重置默认样式时，<code class="inl">Normalize.css</code> 比 <code class="inl">reset.css</code> 更温和，会保留一些有价值的默认样式。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">43.</span><span>CSS3 的 <code class="inl">opacity</code> 和 <code class="inl">rgba()</code> 作用完全一样。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">44.</span><span><code class="inl">background-size:contain</code> 可能会造成容器里部分区域没有背景图片。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">45.</span><span><code class="inl">outline-offset</code> 是 <code class="inl">outline</code> 的子属性。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">46.</span><span>线性渐变 <code class="inl">linear-gradient(red,yellow,green)</code> 默认从左到右渐变。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">47.</span><span>2D 位移与相对定位都不脱离文档流，但位移的百分比参考的是自身，相对定位的百分比参考的是父元素。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">48.</span><span>多重变换时，建议把旋转写在最后。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">49.</span><span><code class="inl">perspective</code> 要设置给发生 3D 变换元素本身。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">50.</span><span><code class="inl">backface-visibility</code> 需要加在发生 3D 变换元素的自身上。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">51.</span><span>所有 CSS 属性都支持过渡。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">52.</span><span><code class="inl">animation-play-state</code> 一般单独使用。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">53.</span><span>伸缩容器的所有后代元素都会成为伸缩项目。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">54.</span><span>无论原来是块元素、行内元素还是行内块元素，一旦成为伸缩项目，全都会"块状化"。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">55.</span><span>改变了 flex 主轴的方向后，侧轴方向不会改变。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">56.</span><span><code class="inl">flex:1</code> 等价于 <code class="inl">flex:1 1 auto</code>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">57.</span><span><code class="inl">flex-grow</code> 的默认值是 0，<code class="inl">flex-shrink</code> 的默认值是 1。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">58.</span><span>媒体查询中 <code class="inl">orientation:portrait</code> 表示视口处于横向。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">59.</span><span>BFC 能解决子元素的 margin 塌陷、自身被浮动元素覆盖、以及子元素浮动导致的高度塌陷。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">60.</span><span><code class="inl">display:flow-root</code> 可以开启 BFC。</span></div></li>
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 三、名词解释 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第三部分　名词解释</h2>
+  <p class="sec-note">用自己的话解释，能举出例子更好。</p>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>超文本、标记、标记语言</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>语义化</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>块级元素 / 行内元素 / 行内块元素</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>锚点</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>相对路径 / 绝对路径</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>层叠性</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>继承性</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>选择器权重（优先级）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>像素（px）</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>盒子模型</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>margin 塌陷</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>margin 合并</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>清除浮动</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>包含块</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>定位元素</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">16.</span><span>视口</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">17.</span><span>版心</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">18.</span><span>幽灵空白问题</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">19.</span><span>BFC</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">20.</span><span>怪异盒模型</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">21.</span><span>私有前缀</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">22.</span><span>变换原点</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">23.</span><span>景深</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">24.</span><span>帧 / 关键帧</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">25.</span><span>伸缩容器 / 伸缩项目</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">26.</span><span>主轴 / 侧轴</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">27.</span><span>字体图标</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">28.</span><span>媒体查询</span></div></li>
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 四、简答与对比 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第四部分　简答与对比题</h2>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>对比 C/S 架构与 B/S 架构。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>说出五大常用浏览器，并说明 Chrome、Safari、Firefox、旧 Opera、旧 IE 各自的 CSS3 私有前缀。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>列出 ASCII、ISO 8859-1、GB2312、GBK、UTF-8 各自收录的内容范围，并说明编码使用的两条原则。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>说明 <code class="inl">lang</code> 属性的作用，并写出 <code class="inl">zh-CN</code>、<code class="inl">zh-TW</code>、<code class="inl">en-US</code> 的含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>写出 HTML 标准结构的完整代码，并说明 <code class="inl">head</code> 与 <code class="inl">body</code> 的区别。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>对比六种常见图片格式（jpg、png、bmp、gif、webp、base64）的特点与使用场景。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>说明 <code class="inl">img</code> 标签 <code class="inl">alt</code> 属性的三个作用，并指出最主要的一个。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>说出 <code class="inl">a</code> 标签 <code class="inl">href</code> 属性可以实现的四种跳转/唤起能力，并各写一句示例代码。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>对比有序列表、无序列表、自定义列表的标签结构与使用场景。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>说出表格的四个组成部分及对应标签，并说明 <code class="inl">th</code> 与 <code class="inl">td</code> 的区别。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>列出表单中至少八种 <code class="inl">input</code> 的 <code class="inl">type</code> 取值及各自用途。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>说出 HTML 实体的组成结构，并写出空格、小于号、大于号、和号、版权符号、乘号、除号的实体写法。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>列举 <code class="inl">meta</code> 标签可以配置的至少六种元信息。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>对比 HTML4 与 HTML5，说明 HTML5 的优势与兼容性情况。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>说明 <code class="inl">article</code> 与 <code class="inl">section</code> 的三点区别。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">16.</span><span>说明 <code class="inl">meter</code> 与 <code class="inl">progress</code> 的区别，并各写出三个属性。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">17.</span><span>列举 HTML5 表单新增的五个属性和它们的适用范围（哪些控件可用、哪些不可用）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">18.</span><span>说明 <code class="inl">video</code> / <code class="inl">audio</code> 的 <code class="inl">preload</code> 属性三个取值的含义，以及它与 <code class="inl">autoplay</code> 的关系。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">19.</span><span>写出 HTML5 兼容性处理的三种做法。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">20.</span><span>对比行内样式、内部样式、外部样式：写法、优点、缺点、使用频率、作用范围。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">21.</span><span>说出 CSS 选择器的两大类分类，并列出各自包含的选择器。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">22.</span><span>说明交集选择器与并集选择器的含义、语法和注意事项。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">23.</span><span>说明 HTML 元素间的五种关系（父、子、祖先、后代、兄弟）并举例。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">24.</span><span>对比后代选择器与子代选择器。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">25.</span><span>写出属性选择器的五种写法及含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">26.</span><span>说明伪类与伪元素的区别，并分别列举至少六个常用值。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">27.</span><span>写出动态伪类的顺序（LVHA），并说明 <code class="inl">:focus</code> 的适用范围。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">28.</span><span>说明 <code class="inl">:nth-child(n)</code> 中 n 的五种取值方式及含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">29.</span><span>完整写出选择器权重的计算规则，并计算下列选择器的权重：<code class="inl">ul&gt;li</code>、<code class="inl">div ul&gt;li p a span</code>、<code class="inl">#atguigu .slogan</code>、<code class="inl">#atguigu .slogan a</code>、<code class="inl">#atguigu .slogan a:hover</code>。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">30.</span><span>说明 <code class="inl">!important</code>、行内样式、ID 选择器、类选择器、元素选择器、通配选择器、继承样式之间的优先级关系。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">31.</span><span>对比 CSS 的四种颜色表示方式，并说明开发中最常用的是哪两种。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">32.</span><span>写出 <code class="inl">font</code> 复合属性的编写规则，并指出哪两项必须写、顺序要求是什么。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">33.</span><span>说明 <code class="inl">line-height</code> 的四种取值方式，以及它与 <code class="inl">height</code> 的关系。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">34.</span><span>对比三种元素显示模式在"是否独占一行、默认宽度、默认高度、能否设置宽高"上的区别，并各举三类标签。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">35.</span><span>说明 <code class="inl">display</code> 属性的四个常用值及效果。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">36.</span><span>写出盒子大小的计算公式、默认宽度的计算公式，并说明 <code class="inl">margin</code> 是否影响盒子大小。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">37.</span><span>写出 <code class="inl">padding</code> / <code class="inl">margin</code> 复合属性写 1、2、3、4 个值时的含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">38.</span><span>说明 margin 塌陷与 margin 合并的区别，以及各自的解决方案。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">39.</span><span>说明 <code class="inl">overflow</code> 的四个取值，以及 <code class="inl">overflow-x</code> 与 <code class="inl">overflow-y</code> 的使用注意点。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">40.</span><span>对比隐藏元素的两种方式（<code class="inl">visibility</code> 与 <code class="inl">display</code>）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">41.</span><span>说明元素之间空白问题与行内块幽灵空白问题的产生原因，以及各自的解决方案。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">42.</span><span>说明如何让子元素在父元素中水平居中、垂直居中（分块元素与行内/行内块两种情况）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">43.</span><span>写出元素浮动后的五点特点，以及浮动对兄弟元素和父元素的影响。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">44.</span><span>写出清除浮动的五种方案，并指出推荐方案及其原理。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">45.</span><span>对比相对定位、绝对定位、固定定位、粘性定位的参考点、是否脱离文档流。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">46.</span><span>说明包含块的两种确定规则。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">47.</span><span>说明 <code class="inl">z-index</code> 的作用、取值特点和使用前提。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">48.</span><span>写出让定位元素的宽/高充满包含块的写法，以及让定位元素在包含块中居中的两种方案。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">49.</span><span>什么是版心？版心宽度一般是多少？说出至少六个常用布局名词及其英文命名。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">50.</span><span>对比重置默认样式的三种方案（全局选择器、reset.css、Normalize.css）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">51.</span><span>列出 CSS3 的主要新特性（至少六条）。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">52.</span><span>对比 <code class="inl">content-box</code> 与 <code class="inl">border-box</code>，并说明各自的适用场景。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">53.</span><span>写出 <code class="inl">box-shadow</code> 六个参数的含义与顺序，以及 <code class="inl">text-shadow</code> 四个参数的含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">54.</span><span>说明 <code class="inl">opacity</code> 与 <code class="inl">rgba()</code> 的区别。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">55.</span><span>对比 <code class="inl">background-origin</code> 与 <code class="inl">background-clip</code> 的作用和默认值。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">56.</span><span>写出 <code class="inl">background-size</code> 五个取值（长度、百分比、auto、contain、cover）的含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">57.</span><span>说明 <code class="inl">background</code> 复合属性的书写顺序，以及 <code class="inl">origin</code>、<code class="inl">clip</code>、<code class="inl">size</code> 的写法规则。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">58.</span><span>写出 <code class="inl">border-radius</code> 综合写法（四个角 x / 四个角 y）的格式，并说明写一个值、两个值时的含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">59.</span><span>说明 <code class="inl">white-space</code> 五个取值的含义，以及 <code class="inl">text-overflow</code> 生效的三个条件。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">60.</span><span>对比线性渐变与径向渐变的方向控制方式，并说明重复渐变的写法。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">61.</span><span>写出 <code class="inl">@font-face</code> 的基本用法，并说明字体图标的三个优点。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">62.</span><span>说明 2D 变换中位移、缩放、旋转、扭曲的作用，以及"多重变换建议最后旋转"的原因。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">63.</span><span>说明 3D 变换中"开启 3D 空间""设置景深""背部可见性"三个属性分别写在哪里、作用是什么。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">64.</span><span>写出 <code class="inl">transition-timing-function</code> 的九种取值及含义。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">65.</span><span>写出 <code class="inl">animation</code> 复合属性的书写规则，以及各子属性的作用。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">66.</span><span>对比过渡 <code class="inl">transition</code> 与动画 <code class="inl">animation</code> 的区别。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">67.</span><span>说明 flex 中 <code class="inl">justify-content</code>、<code class="inl">align-items</code>、<code class="inl">align-content</code> 三者的区别，并各写出至少四个常用值。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">68.</span><span>说明 <code class="inl">flex-basis</code>、<code class="inl">flex-grow</code>、<code class="inl">flex-shrink</code> 的作用与默认值，并写出 <code class="inl">flex</code> 复合属性的四个简写对应关系。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">69.</span><span>说明 <code class="inl">order</code> 与 <code class="inl">align-self</code> 的作用与默认值。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">70.</span><span>写出媒体查询的语法结构、四种运算符，以及结合外部样式使用的两种写法。</span></div></li>
+    <li class="q-item"><div class="stem"><span class="no">71.</span><span>什么是 BFC？开启 BFC 能解决哪三个问题？写出至少六种开启 BFC 的方式。</span></div></li>
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 五、代码补全 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第五部分　代码补全</h2>
+  <p class="sec-note">把空缺处补全，使代码能实现注释中描述的效果。</p>
+  <ol class="q">
+
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>补全 HTML 标准结构</span></div>
+      <pre>&lt;____ html lang="____"&gt;
+&lt;head&gt;
+    &lt;meta charset="____"&gt;
+    &lt;title&gt;我的第一个网页&lt;/title&gt;
+&lt;/head&gt;
+&lt;____&gt;
+    网页内容
+&lt;/____&gt;
+&lt;/html&gt;</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>补全带锚点的超链接</span></div>
+      <pre>&lt;!-- 跳转到本页 test1 锚点 --&gt;
+&lt;a ____="#test1"&gt;去 test1&lt;/a&gt;
+&lt;!-- 回到页面顶部 --&gt;
+&lt;a href="____"&gt;回到顶部&lt;/a&gt;
+&lt;!-- 在新窗口打开京东 --&gt;
+&lt;a href="https://www.jd.com/" ____="____"&gt;去京东&lt;/a&gt;
+&lt;!-- 强制下载文件，下载后名字为"电影.mp4" --&gt;
+&lt;a href="./resource/movie.mp4" ____="电影.mp4"&gt;下载&lt;/a&gt;</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>补全表格结构</span></div>
+      <pre>&lt;table ____="1"&gt;
+    &lt;____&gt;学生信息&lt;/____&gt;
+    &lt;____&gt;
+        &lt;tr&gt;
+            &lt;____&gt;姓名&lt;/____&gt;
+            &lt;____&gt;成绩&lt;/____&gt;
+        &lt;/tr&gt;
+    &lt;/____&gt;
+    &lt;____&gt;
+        &lt;tr&gt;
+            &lt;td ____="2"&gt;合并两列&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/____&gt;
+&lt;/table&gt;</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>补全表单</span></div>
+      <pre>&lt;form action="/login" method="____"&gt;
+    &lt;label ____="user"&gt;用户名：&lt;/label&gt;
+    &lt;input ____="user" type="text" name="username" ____="10" ____="请输入用户名"&gt;&lt;br&gt;
+
+    &lt;label&gt;
+        密码：
+        &lt;input type="____" name="pwd" required&gt;
+    &lt;/label&gt;&lt;br&gt;
+
+    性别：
+    &lt;input type="radio" name="____" value="male" ____&gt;男
+    &lt;input type="radio" name="____" value="female"&gt;女&lt;br&gt;
+
+    &lt;select name="city"&gt;
+        &lt;option value="bj"&gt;北京&lt;/option&gt;
+        &lt;option value="sh" ____&gt;上海&lt;/option&gt;
+    &lt;/select&gt;&lt;br&gt;
+
+    &lt;textarea name="msg" ____="5" ____="30"&gt;&lt;/textarea&gt;&lt;br&gt;
+    &lt;input type="____" value="提交"&gt;
+    &lt;input type="____" value="重置"&gt;
+&lt;/form&gt;</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>补全"清除浮动"的推荐写法</span></div>
+      <pre>.parent____ {
+    ____: "";
+    display: ____;
+    ____: both;
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>补全"绝对定位居中"</span></div>
+      <pre>.box {
+    position: ____;
+    left: ____;
+    top: ____;
+    transform: translate(____, ____);
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>补全"flex 水平垂直居中 + 等分布局"</span></div>
+      <pre>.outer {
+    display: ____;
+    ____: center;      /* 主轴居中 */
+    ____: center;      /* 侧轴居中 */
+}
+.outer .item {
+    ____: 1;           /* 每个项目等分剩余空间 */
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>补全"单行文本溢出显示省略号"</span></div>
+      <pre>.title {
+    width: 200px;
+    overflow: ____;
+    white-space: ____;
+    text-overflow: ____;
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>补全"文字渐变"效果</span></div>
+      <pre>.text {
+    background-image: linear-gradient(to right, red, blue);
+    ____: text;
+    -webkit-____: text;
+    color: ____;
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>补全"hover 时盒子放大并变圆角"的过渡效果</span></div>
+      <pre>.card {
+    width: 200px;
+    height: 200px;
+    background-color: skyblue;
+    border-radius: 0;
+    ____: all 0.3s ease;
+}
+.card:hover {
+    transform: ____(1.2);
+    border-radius: 20px;
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>补全 3D 翻转卡片</span></div>
+      <pre>/* 父容器：开启 3D 空间并设置景深 */
+.card {
+    width: 200px; height: 300px;
+    ____: preserve-3d;
+    ____: 1000px;
+    position: relative;
+}
+.card:hover {
+    transform: rotateY(____);
+}
+/* 背面 */
+.card .back {
+    ____: hidden;
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>补全"心跳"动画</span></div>
+      <pre>@____ heart {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.heart {
+    animation-____: heart;
+    animation-____: 1s;
+    animation-iteration-____: infinite;
+    animation-direction: ____;   /* 正反交替运行 */
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>补全媒体查询（屏幕宽度 ≤ 768px 时隐藏侧边栏）</span></div>
+      <pre>@____ screen and (____-width: 768px) {
+    .sidebar { display: ____; }
+}</pre></li>
+
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>补全 BFC 开启方式（至少补 3 处不同写法）</span></div>
+      <pre>/* 写法一 */
+.a { ____: hidden; }
+/* 写法二 */
+.b { ____: flow-root; }
+/* 写法三 */
+.c { display: ____; }</pre></li>
+
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 六、代码编写 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第六部分　代码编写题</h2>
+  <p class="sec-note">在编辑器里敲出来，用浏览器验证效果。这部分是本册的重点。</p>
+  <ol class="q">
+
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span>从零写一个完整的 HTML 页面骨架（含文档声明、lang、charset、title、body），并在页面上显示一行"Hello, HTML"。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span>用无序列表 + 超链接写一个水平导航栏，包含"首页 / 课程 / 关于我们 / 联系我们"四项，其中"课程"要在新窗口打开。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span>写一个"课程表"表格：使用完整的 <code class="inl">caption</code>/<code class="inl">thead</code>/<code class="inl">tbody</code> 结构，至少用一次 <code class="inl">colspan</code> 和一次 <code class="inl">rowspan</code>。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span>写一个注册表单，要求包含：<code class="inl">fieldset</code> + <code class="inl">legend</code> 分组、用户名（限制长度 10）、密码（限制长度 6）、性别单选（默认选中"男"）、爱好多选、城市下拉框（默认选中"北京"）、隐藏域、文本域、提交按钮、重置按钮，并用 <code class="inl">label</code> 的两种关联方式各写一次。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span>写一个"个人信息卡"页面，用上下列标签各至少一次：<code class="inl">header</code>、<code class="inl">nav</code>、<code class="inl">section</code>、<code class="inl">aside</code>、<code class="inl">footer</code>、<code class="inl">strong</code>、<code class="inl">em</code>、<code class="inl">abbr</code>、<code class="inl">address</code>。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">6.</span><span>用 <code class="inl">float</code> 实现一个左右固定宽、中间自适应的三栏布局（左 200px、右 200px、中间自适应，整体宽 1200px 居中）。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">7.</span><span>用 flex 实现上面第 6 题的同样布局，并说明相比浮动方案的好处。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">8.</span><span>用 flex 实现一个"圣杯布局"：头部、三栏（左中右）、底部；中间栏自适应，左右栏固定宽度，整体高度撑满视口。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">9.</span><span>实现一个"弹窗"：宽 400px、高 300px，在视口中水平垂直居中（用两种方案各写一遍），并且弹窗内容溢出时显示滚动条。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">10.</span><span>实现一个"粘性头部"：页面滚动时，导航栏始终固定在视口顶部，且不脱离文档流。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">11.</span><span>实现一个"卡片列表"：一行放 4 张卡片，用 flex 实现，卡片间距 20px，剩余空间等分；屏幕宽度小于 768px 时变成一行 2 张。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">12.</span><span>实现一个"纯 CSS 下拉菜单"：鼠标悬停在"课程"上时，显示下方 4 个子菜单项（用 <code class="inl">:hover</code> + 绝对定位实现）。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">13.</span><span>实现一个"卡片悬停效果"：默认 200×200 蓝色方块，鼠标悬停时放大 1.2 倍、圆角变 20px、出现阴影，过渡时间 0.3s。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">14.</span><span>用 <code class="inl">@keyframes</code> 写一个"加载中"动画：一个 40×40 的圆环持续旋转，无限循环，每圈 1s 线性。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">15.</span><span>用 3D 变换实现一个"翻转卡片"：鼠标悬停时卡片沿 Y 轴旋转 180°，背面内容不可见（背面不可见）。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">16.</span><span>用渐变实现三种效果：①横格纸（重复线性渐变）；②立体球（径向渐变）；③从红到蓝的文字渐变。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">17.</span><span>写一个单行文本标题，要求：宽度 300px，超出部分显示省略号；再写一个多行文本，要求最多显示 3 行，超出部分显示省略号（多行可用 <code class="inl">-webkit-line-clamp</code>）。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">18.</span><span>用 <code class="inl">meter</code> 和 <code class="inl">progress</code> 各写一个"电量"和"上传进度"的展示，并配上文字说明。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">19.</span><span>写一个带搜索提示的输入框：输入框输入内容时，下方自动提示预设的几个关键字（用 <code class="inl">input</code> + <code class="inl">datalist</code> 实现）。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">20.</span><span>写一个"问答折叠"效果（用 <code class="inl">details</code> + <code class="inl">summary</code> 实现），至少 3 个问题。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">21.</span><span>用多列布局实现一个"报纸式"文本排版：分成 3 列，列间距 30px，列之间有 1px 实线分隔。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">22.</span><span>用 <code class="inl">background</code> 相关属性实现一张图片的四种效果：①不平铺且居中；②等比缩放完整显示在容器内；③等比缩放铺满容器；④作为文字背景（文字渐变）。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">23.</span><span>用 <code class="inl">iframe</code> 在页面中嵌入一个外部网页，要求：宽 800px、高 400px、不显示边框。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">24.</span><span>写一段 HTML，把下面这些特殊符号正确显示在页面上：空格、小于号、大于号、和号、版权符号、注册商标、商标、乘号、除号、人民币符号。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">25.</span><span>用 <code class="inl">meta</code> 标签配置一个完整的网页元信息：字符编码、IE 兼容、移动端 viewport、关键字、描述、爬虫规则、作者、版权、10 秒后自动跳转到百度。</span></div></li>
+
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 七、综合实操 -->
+  <!-- ==================================================== -->
+  <h2 class="sec">第七部分　综合实操题</h2>
+  <p class="sec-note">当作小项目独立完成，做完对照笔记自查有没有漏掉知识点。</p>
+  <ol class="q">
+    <li class="q-item"><div class="stem"><span class="no">1.</span><span><b>PC 端首页</b>：实现一个包含"顶部导航条 → 页头 → 导航 → Banner → 内容区（左中右三栏）→ 页脚"的完整页面。要求：整体 1200px 版心居中、重置默认样式、内容区用浮动或 flex 实现、页脚用清除浮动处理。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">2.</span><span><b>响应式卡片列表</b>：实现一个商品卡片列表。要求：桌面端一行 4 张、平板（768~1200px）一行 2 张、手机（≤768px）一行 1 张；卡片包含图片、标题（单行溢出省略号）、描述、价格；鼠标悬停有放大和阴影过渡效果。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">3.</span><span><b>注册页</b>：实现一个完整的注册页面。要求：使用 HTML5 新增语义化标签做整体布局、使用 HTML5 表单新属性（placeholder、required、autofocus、pattern 等）、使用 HTML5 新增 input 类型（email、tel、date、color、range）、对手机号做正则校验、整体用 flex 居中。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">4.</span><span><b>个人名片（3D）</b>：实现一张可翻转的个人名片。要求：正面显示头像和姓名，背面显示联系方式；鼠标悬停时沿 Y 轴翻转 180°；使用 <code class="inl">transform-style</code>、<code class="inl">perspective</code>、<code class="inl">backface-visibility</code>；翻转过程有过渡效果。</span></div></li>
+
+    <li class="q-item"><div class="stem"><span class="no">5.</span><span><b>数据展示页</b>：综合运用所学做一个"学习进度"页面。要求包含：用 <code class="inl">table</code> 展示课程表（含跨行跨列）、用 <code class="inl">progress</code> 展示各科完成进度、用 <code class="inl">meter</code> 展示各项能力评分、用多列布局展示一段文字说明、用 <code class="inl">details</code> 做常见问题折叠、整体用 flex 布局、并做响应式适配。</span></div></li>
+  </ol>
+
+  <!-- ==================================================== -->
+  <!-- 答案 -->
+  <!-- ==================================================== -->
+  <div class="answers" id="answers">
+    <h2 class="sec">参考答案</h2>
+
+    <div class="ans-block">
+      <h3>第一部分（一）HTML 标签名</h3>
+      <div class="ans-grid">
+        <span><b>1.</b> header / footer / nav / aside</span>
+        <span><b>2.</b> article / section / main</span>
+        <span><b>3.</b> meter / progress</span>
+        <span><b>4.</b> datalist / details / summary</span>
+        <span><b>5.</b> ruby / rt / mark</span>
+        <span><b>6.</b> caption / thead / tbody / tfoot / th</span>
+        <span><b>7.</b> dt / dd / ol / ul</span>
+        <span><b>8.</b> br / hr / pre</span>
+        <span><b>9.</b> textarea / select / option / fieldset / legend</span>
+        <span><b>10.</b> iframe / ruby</span>
+        <span><b>11.</b> em / strong / span</span>
+        <span><b>12.</b> del / ins / sub / sup</span>
+        <span><b>13.</b> code / kbd / var / abbr / bdo</span>
+        <span><b>14.</b> blockquote / q / address / cite / dfn</span>
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>第一部分（二）CSS 属性名</h3>
+      <div class="ans-grid">
+        <span><b>1.</b> font-size / font-family / font-style / font-weight / font</span>
+        <span><b>2.</b> color / letter-spacing / word-spacing / text-decoration / text-indent</span>
+        <span><b>3.</b> text-align / line-height / vertical-align</span>
+        <span><b>4.</b> list-style-type / list-style-position / list-style-image / list-style</span>
+        <span><b>5.</b> border-collapse / border-spacing / table-layout / caption-side</span>
+        <span><b>6.</b> background-color / background-image / background-repeat / background-position / background</span>
+        <span><b>7.</b> cursor / display / overflow / visibility</span>
+        <span><b>8.</b> width / max-width / height / min-height</span>
+        <span><b>9.</b> padding-top/right/bottom/left / padding / margin-top/right/bottom/left / margin</span>
+        <span><b>10.</b> border-style / border-width / border-color / border</span>
+        <span><b>11.</b> float / clear / position / z-index</span>
+        <span><b>12.</b> box-sizing / resize / box-shadow / opacity</span>
+        <span><b>13.</b> background-origin / background-clip / background-size / border-radius</span>
+        <span><b>14.</b> text-shadow / white-space / text-overflow / -webkit-text-stroke-width</span>
+        <span><b>15.</b> transition-property / transition-duration / transition-delay / transition-timing-function / transition</span>
+        <span><b>16.</b> @keyframes / animation-name / animation-duration / animation-iteration-count / animation-direction / animation-fill-mode / animation-play-state</span>
+        <span><b>17.</b> transform / transform-origin / transform-style / perspective / perspective-origin / backface-visibility</span>
+        <span><b>18.</b> column-count / column-width / column-gap / column-span</span>
+        <span><b>19.</b> flex-direction / flex-wrap / flex-flow / justify-content / align-items / align-content</span>
+        <span><b>20.</b> flex-basis / flex-grow / flex-shrink / flex / order / align-self</span>
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>第一部分（三）属性名与属性值</h3>
+      <div class="ans-grid">
+        <span><b>1.</b> src / alt / width</span>
+        <span><b>2.</b> href / _self / _blank / download</span>
+        <span><b>3.</b> name / id / href="#" / href=""</span>
+        <span><b>4.</b> rowspan / colspan / border</span>
+        <span><b>5.</b> name / value / maxlength / placeholder</span>
+        <span><b>6.</b> checked / selected / disabled</span>
+        <span><b>7.</b> rows / cols / type</span>
+        <span><b>8.</b> submit / value</span>
+        <span><b>9.</b> id / 嵌套（套）</span>
+        <span><b>10.</b> get / post / novalidate</span>
+        <span><b>11.</b> controls / muted / autoplay / loop / poster</span>
+        <span><b>12.</b> contenteditable / draggable / hidden / spellcheck / data-*</span>
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>第二部分　判断题</h3>
+      <div class="ans-grid">
+        <span><b>1.</b> √</span><span><b>2.</b> ×（同名属性后写的失效）</span>
+        <span><b>3.</b> √</span><span><b>4.</b> ×（注释不可嵌套）</span>
+        <span><b>5.</b> √</span><span><b>6.</b> ×（应统一用 UTF-8）</span>
+        <span><b>7.</b> √</span><span><b>8.</b> ×（行内元素不能写块级元素）</span>
+        <span><b>9.</b> √</span><span><b>10.</b> √</span>
+        <span><b>11.</b> √</span><span><b>12.</b> √</span>
+        <span><b>13.</b> √</span><span><b>14.</b> √</span>
+        <span><b>15.</b> ×（解析成一个空格）</span><span><b>16.</b> √</span>
+        <span><b>17.</b> ×（只控制最外侧边框宽度）</span><span><b>18.</b> √</span>
+        <span><b>19.</b> ×（应用 p 或 margin）</span><span><b>20.</b> √</span>
+        <span><b>21.</b> √</span><span><b>22.</b> ×（通配权重最低）</span>
+        <span><b>23.</b> √</span><span><b>24.</b> √</span>
+        <span><b>25.</b> ×（这些都不继承）</span><span><b>26.</b> √</span>
+        <span><b>27.</b> ×（最小值为 0）</span><span><b>28.</b> ×（不能控制块元素）</span>
+        <span><b>29.</b> √</span><span><b>30.</b> √</span>
+        <span><b>31.</b> ×（上下 margin 无效）</span><span><b>32.</b> √</span>
+        <span><b>33.</b> ×（margin 合并无需解决）</span><span><b>34.</b> √</span>
+        <span><b>35.</b> √</span><span><b>36.</b> √</span>
+        <span><b>37.</b> ×（不脱离文档流）</span><span><b>38.</b> ×（浮动失效，以定位为主）</span>
+        <span><b>39.</b> √</span><span><b>40.</b> ×（只有定位元素才有效）</span>
+        <span><b>41.</b> √</span><span><b>42.</b> √</span>
+        <span><b>43.</b> ×（opacity 作用于整个元素，rgba 只调整颜色透明度）</span><span><b>44.</b> √</span>
+        <span><b>45.</b> ×（是独立属性）</span><span><b>46.</b> ×（默认从上到下）</span>
+        <span><b>47.</b> √</span><span><b>48.</b> √</span>
+        <span><b>49.</b> ×（设置给父元素）</span><span><b>50.</b> √</span>
+        <span><b>51.</b> ×（值为数字或能转数字的属性才支持）</span><span><b>52.</b> √</span>
+        <span><b>53.</b> ×（只有子元素是伸缩项目，后代不是）</span><span><b>54.</b> √</span>
+        <span><b>55.</b> ×（侧轴方向随之改变）</span><span><b>56.</b> ×（flex:1 = 1 1 0）</span>
+        <span><b>57.</b> √</span><span><b>58.</b> ×（portrait 是纵向）</span>
+        <span><b>59.</b> √</span><span><b>60.</b> √</span>
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>第三部分　名词解释</h3>
+      <div class="row exp">
+        <b>1. 超文本/标记/标记语言</b>：超文本指比普通文本内容更丰富的文本；标记指让文本变成超文本所需的各种标记符号；标记的写法、读音、使用规则组成了标记语言。<br>
+        <b>2. 语义化</b>：用特定的标签去表达特定的含义。原则是标签的默认效果不重要，语义最重要。优势：结构清晰可读性强、有利于 SEO、方便设备解析。<br>
+        <b>3. 块级/行内/行内块</b>：块级独占一行、默认宽度撑满父元素、可设宽高；行内不独占一行、默认宽高由内容撑开、不能设宽高；行内块不独占一行、默认宽高由内容撑开、可设宽高。<br>
+        <b>4. 锚点</b>：网页中的一个标记点，可通过 <code class="inl">a</code> 的 <code class="inl">name</code> 属性或其他标签的 <code class="inl">id</code> 属性设置，用 <code class="inl">href="#锚点名"</code> 跳转。<br>
+        <b>5. 相对路径/绝对路径</b>：相对路径以当前位置为参考点建立路径（<code class="inl">./</code>、<code class="inl">../</code>）；绝对路径以根位置为参考点，分本地绝对路径与网络绝对路径。<br>
+        <b>6. 层叠性</b>：发生样式冲突（同一元素的同一样式名被设置不同值）时，按选择器优先级进行覆盖。<br>
+        <b>7. 继承性</b>：元素自动拥有父元素或祖先元素上设置的某些样式，优先继承离得近的。可继承的是不影响布局的属性（字体、文本、颜色等）。<br>
+        <b>8. 选择器权重</b>：不同选择器选中同一元素并设置同一样式名时决定谁生效的依据，格式为 (a,b,c)。<br>
+        <b>9. 像素</b>：电脑屏幕由一个个"小点"组成，每个小点就是一个像素；像素点越小，呈现内容越清晰细腻。<br>
+        <b>10. 盒子模型</b>：CSS 把每个 HTML 元素都看成一个盒子，由 margin、border、padding、content 四部分组成。<br>
+        <b>11. margin 塌陷</b>：第一个子元素的上 margin 会作用在父元素上，最后一个子元素的下 margin 会作用在父元素上。<br>
+        <b>12. margin 合并</b>：上面兄弟元素的下外边距和下面兄弟元素的上外边距会合并，取最大值而非相加。<br>
+        <b>13. 清除浮动</b>：消除浮动元素对后续兄弟元素和父元素（高度塌陷）造成的影响。<br>
+        <b>14. 包含块</b>：没脱离文档流的元素，包含块是父元素；脱离文档流的元素，包含块是第一个拥有定位属性的祖先元素（都没有则整个页面）。<br>
+        <b>15. 定位元素</b>：绝对/固定定位后的元素，默认宽高被内容撑开，且能自由设置宽高。<br>
+        <b>16. 视口</b>：对 PC 浏览器来说，就是看网页的那扇"窗户"，固定定位参考视口。<br>
+        <b>17. 版心</b>：PC 端网页中固定宽度且水平居中、用于显示主要内容的盒子，宽度一般 960~1200px。<br>
+        <b>18. 幽灵空白问题</b>：行内块元素与文本的基线对齐，而文本基线与文本最底端之间有一定距离，导致行内块底部出现空隙。<br>
+        <b>19. BFC</b>：块级格式上下文，可理解为元素的一个"特异功能"，默认关闭，满足某些条件后被激活（创建了 BFC）。<br>
+        <b>20. 怪异盒模型</b>：<code class="inl">box-sizing:border-box</code>，此时 width 和 height 设置的是盒子总大小，而非内容区大小。<br>
+        <b>21. 私有前缀</b>：W3C 提出的某个 CSS 特性在被浏览器正式支持之前，浏览器厂商用私有前缀来测试该特性；正式支持后就不需要了。<br>
+        <b>22. 变换原点</b>：元素变换时的基准点，默认在元素中心，用 <code class="inl">transform-origin</code> 设置；对位移无影响，对旋转和缩放有影响。<br>
+        <b>23. 景深</b>：指定观察者与 z=0 平面的距离，能让 3D 变换的元素产生透视效果，显得更立体，用 <code class="inl">perspective</code> 设置。<br>
+        <b>24. 帧/关键帧</b>：一段动画中连续播放的每一张画面叫帧；若干帧中起到决定性作用的 2~3 帧叫关键帧。<br>
+        <b>25. 伸缩容器/伸缩项目</b>：开启 flex 的元素是伸缩容器；伸缩容器的所有子元素自动成为伸缩项目。<br>
+        <b>26. 主轴/侧轴</b>：伸缩项目沿主轴排列，主轴默认水平、方向从左到右；与主轴垂直的是侧轴，默认垂直、从上到下。<br>
+        <b>27. 字体图标</b>：用字体文件呈现图标，相比图片更清晰、灵活性高（可改大小颜色风格）、兼容性好。<br>
+        <b>28. 媒体查询</b>：通过检测设备类型和媒体特性（如视口宽度）来应用不同样式的技术，是实现响应式布局的基础。
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>第四部分　简答与对比题（要点）</h3>
+      <div class="row exp">
+        <b>1.</b> C/S 需安装、偶尔更新、不跨平台、开发更具针对性；B/S 无需安装、无需更新、可跨平台、开发更具通用性。前端工程师主要负责 B/S 架构网页。<br>
+        <b>2.</b> 五大浏览器：Chrome、Safari、IE、Firefox、Opera。前缀：Chrome/Safari/Edge 用 <code class="inl">-webkit-</code>，Firefox 用 <code class="inl">-moz-</code>，旧 Opera 用 <code class="inl">-o-</code>，旧 IE 用 <code class="inl">-ms-</code>。<br>
+        <b>3.</b> ASCII 128 个（字母数字符号）；ISO 8859-1 共 256 个（扩充希腊字符等）；GB2312 收录 6763 个常用汉字 + 682 个字符；GBK 汉字符号 20000+ 且支持繁体；UTF-8 包含世界上所有语言的文字与符号。原则：①存储时务必采用合适的字符编码，否则数据丢失；②存储时用什么编码，读取时就用什么解码，否则乱码。<br>
+        <b>4.</b> <code class="inl">lang</code> 作用：让浏览器显示对应的翻译提示、有利于搜索引擎优化。zh-CN 中文-中国大陆；zh-TW 中文-中国台湾；en-US 英语-美国。<br>
+        <b>5.</b> 见知识点总结"标准结构"。<code class="inl">head</code> 内容不会出现在网页中，<code class="inl">body</code> 中内容才会呈现。<br>
+        <b>6.</b> jpg：有损压缩，颜色丰富、体积小、不支持透明和动态，用于产品宣传图；png：无损、支持透明、质量高，用于 logo 和重要配图；bmp：不压缩、细节多、体积极大，用于大型游戏图片；gif：仅 256 色、支持简单透明和动态，用于网页动态图；webp：兼具优点但兼容性差，用于网页各种图片；base64：图片编码成文本，直接作为 src 值，不受文件位置影响，用于较小图片。<br>
+        <b>7.</b> ①让搜索引擎得知图片内容（最主要）；②图片无法展示时浏览器呈现 alt 值；③盲人阅读器朗读 alt 值。<br>
+        <b>8.</b> ①跳转到指定页面 <code class="inl">&lt;a href="https://www.jd.com/"&gt;</code>；②跳转到指定文件（可触发下载）<code class="inl">&lt;a href="./x.zip"&gt;</code>；③跳转到锚点 <code class="inl">&lt;a href="#test1"&gt;</code>；④唤起指定应用 <code class="inl">&lt;a href="tel:10010"&gt;</code>。<br>
+        <b>9.</b> 有序列表 <code class="inl">ol&gt;li</code>，用于有顺序或侧重顺序的内容；无序列表 <code class="inl">ul&gt;li</code>，用于无顺序的内容；自定义列表 <code class="inl">dl&gt;dt+dd</code>，用于术语名 + 术语描述，一个 dt 可对应多个 dd。<br>
+        <b>10.</b> 表格标题 caption、表格头部 thead、表格主体 tbody、表格脚注 tfoot。<code class="inl">th</code> 是表头单元格（文字默认加粗居中），<code class="inl">td</code> 是普通单元格；二者属性相同。<br>
+        <b>11.</b> text 文本、password 密码、radio 单选、checkbox 复选、hidden 隐藏域、submit 提交、reset 重置、button 普通按钮、file（文件）等。<br>
+        <b>12.</b> 由 <code class="inl">&amp;</code> + 实体名称（或 <code class="inl">#</code> + 实体编号）+ <code class="inl">;</code> 组成。空格 <code class="inl">&amp;nbsp;</code>、小于号 <code class="inl">&amp;lt;</code>、大于号 <code class="inl">&amp;gt;</code>、和号 <code class="inl">&amp;amp;</code>、版权 <code class="inl">&amp;copy;</code>、乘号 <code class="inl">&amp;times;</code>、除号 <code class="inl">&amp;divide;</code>。<br>
+        <b>13.</b> 字符编码、IE 兼容性、移动端 viewport、关键字 keywords、描述 description、爬虫规则 robots、作者 author、生成工具 generator、版权 copyright、自动刷新 refresh。<br>
+        <b>14.</b> 优势：针对 JS 新增很多可操作接口、新增语义化标签与全局属性、新增多媒体标签替代 flash、更侧重语义化对 SEO 更友好、可移植性好适合移动设备。兼容性：Chrome/Safari/Opera/Firefox 均支持；IE 必须 9 及以上，且 IE9 仅支持部分新特性。<br>
+        <b>15.</b> ①一个 article 里可以有多个 section；②section 强调分段分块；③article 更强调独立性、完整性。<br>
+        <b>16.</b> <code class="inl">meter</code> 定义已知范围内的标量测量（电量、磁盘用量），属性 high/low/max/min/optimum/value；<code class="inl">progress</code> 显示任务完成进度，属性 max（目标值）、value（当前值）。<br>
+        <b>17.</b> placeholder（文字输入类控件，非默认值）、required（除按钮外其他控件）、autofocus（所有表单控件）、autocomplete（文字输入类，密码框和多行输入框不可用）、pattern（文本输入类，多行输入不可用，空值不验证，常与 required 配合）。<br>
+        <b>18.</b> none 不预加载；metadata 仅预先获取元数据（如长度）；auto 可以下载整个文件。若使用 autoplay，则忽略 preload。<br>
+        <b>19.</b> ①添加 <code class="inl">&lt;meta http-equiv="X-UA-Compatible" content="IE=Edge"&gt;</code> 让浏览器处于最优渲染模式；②用 html5shiv 让低版本浏览器认识 H5 语义化标签（配合条件注释）；③加 <code class="inl">&lt;meta name="renderer" content="webkit"&gt;</code> 优先使用 webkit 内核渲染。<br>
+        <b>20.</b> 见知识点总结"三种编写位置"表格。优先级：行内 &gt; 内部 = 外部，同级"后来者居上"。<br>
+        <b>21.</b> 基本选择器：通配、元素、类、ID；复合选择器：交集、并集、后代、子代、兄弟（相邻/通用）、属性、伪类、伪元素。<br>
+        <b>22.</b> 交集：<code class="inl">选择器1选择器2{}</code>，含义"并且"；有标签名必须写在最前；不会出现两个元素选择器；最常用"元素 + 类"。并集：<code class="inl">选择器1,选择器2{}</code>，含义"或者"；一般竖着写；任何选择器都可作为其中一部分；常用于集体声明。<br>
+        <b>23.</b> 父元素（直接包裹某元素的元素）、子元素（被父元素直接包含）、祖先元素（父亲的父亲……）、后代元素（儿子的儿子……）、兄弟元素（具有相同父元素）。<br>
+        <b>24.</b> 后代选择器 <code class="inl">A B{}</code> 选中 A 中所有符合条件的后代（儿子、孙子都算）；子代选择器 <code class="inl">A&gt;B{}</code> 只选中 A 的直接子元素。<br>
+        <b>25.</b> <code class="inl">[属性名]</code> 具有该属性；<code class="inl">[属性名="值"]</code> 属性值等于；<code class="inl">[属性名^="值"]</code> 以该值开头；<code class="inl">[属性名$="值"]</code> 以该值结尾；<code class="inl">[属性名*="值"]</code> 包含该值。<br>
+        <b>26.</b> 伪类选中元素的一种特殊状态（像类但不是类），伪元素选中元素中的一些特殊位置。伪类：:link/:visited/:hover/:active/:focus/:first-child/:nth-child()/:not()/:checked/:disabled 等；伪元素：::first-letter/::first-line/::selection/::placeholder/::before/::after。<br>
+        <b>27.</b> 顺序 :link → :visited → :hover → :active。<code class="inl">:focus</code> 只有表单类元素才能使用；点击、触摸、tab 键选中元素时即获得焦点。<br>
+        <b>28.</b> ①0 或不写：什么都选不中；②n：选中所有子元素；③1~正无穷整数：选中对应序号；④2n 或 even：偶数；⑤2n+1 或 odd：奇数；另有 -n+3 选中前 3 个。<br>
+        <b>29.</b> (a,b,c)：a = ID 选择器个数，b = 类/伪类/属性选择器个数，c = 元素/伪元素选择器个数。ul&gt;li (0,0,2)；div ul&gt;li p a span (0,0,6)；#atguigu .slogan (1,1,0)；#atguigu .slogan a (1,1,1)；#atguigu .slogan a:hover (1,2,1)。比较时从左到右逐位对比。<br>
+        <b>30.</b> <code class="inl">!important</code> &gt; 行内样式 &gt; ID &gt; 类 &gt; 元素 &gt; <code class="inl">*</code> &gt; 继承的样式。并集选择器的每个部分分开算权重。<br>
+        <b>31.</b> 颜色名、rgb/rgba、HEX/HEXA、HSL/HSLA。开发中常用 rgb/rgba 与 HEX/HEXA。<br>
+        <b>32.</b> 字体大小、字体族必须都写；字体族必须是最后一位、字体大小必须是倒数第二位；各属性用空格隔开。<br>
+        <b>33.</b> normal（浏览器根据文字大小决定）、px、数字（自身 font-size 的倍数，最常用）、百分比。设置 height 时高度就是 height 的值；不设置 height 时根据 line-height 计算高度。<br>
+        <b>34.</b> 见知识点总结"显示模式"表格。块元素例：div/p/h1、ul/ol/li、table/tr；行内元素例：br/em/strong、a/label；行内块例：img、td/th、input/button、iframe。<br>
+        <b>35.</b> none 隐藏；block 按块级显示；inline 按内联显示；inline-block 按行内块显示。<br>
+        <b>36.</b> 盒子大小 = content + 左右 padding + 左右 border；总宽度 = 父的 content − 自身的左右 margin；内容区宽度 = 父的 content − 自身左右 margin − 自身左右 border − 自身左右 padding。margin 不影响盒子大小，但影响盒子位置。<br>
+        <b>37.</b> 1 个值：四方向相同；2 个值：上下 / 左右；3 个值：上 / 左右 / 下；4 个值：上 / 右 / 下 / 左（顺时针）。<br>
+        <b>38.</b> 塌陷：子元素 margin 作用到父元素上，解决：父元素设非 0 padding 或非 0 宽度 border，或 <code class="inl">overflow:hidden</code>。合并：相邻兄弟上下 margin 取最大值，无需解决，只给一个设即可。<br>
+        <b>39.</b> visible 显示、hidden 隐藏、scroll 总是显示滚动条、auto 自动。<code class="inl">overflow-x</code> 与 <code class="inl">overflow-y</code> 不能一个 hidden 一个 visible，属实验性属性，不建议使用。<br>
+        <b>40.</b> <code class="inl">visibility:hidden</code> 看不见但仍占位；<code class="inl">display:none</code> 彻底隐藏，不占位、没有大小宽高。<br>
+        <b>41.</b> 元素间空白：行内/行内块元素之间的换行被解析为空白字符，解决：去掉换行（不推荐）或父元素 <code class="inl">font-size:0</code> 再给文字元素单独设字体大小（推荐）。幽灵空白：行内块与文本基线对齐导致底部空隙，解决：设置 <code class="inl">vertical-align</code> 不为 baseline、或图片 <code class="inl">display:block</code>、或父元素 <code class="inl">font-size:0</code>。<br>
+        <b>42.</b> 水平居中：块元素 → 自己 <code class="inl">margin:0 auto</code>；行内/行内块 → 父元素 <code class="inl">text-align:center</code>。垂直居中：块元素 → 自己 <code class="inl">margin-top = (父 content − 子盒子总高)/2</code>；行内/行内块 → 父元素 height = line-height，子元素 <code class="inl">vertical-align:middle</code>。<br>
+        <b>43.</b> 特点：脱离文档流；默认宽高由内容撑开且可设宽高；不独占一行；不会 margin 合并/塌陷，能完美设置四方向 margin 和 padding；不会被当作文本处理。影响：后面的兄弟元素会占据浮动元素之前的位置，显示在其下面；父元素不能被撑开导致高度塌陷，但父元素宽度依然束缚浮动元素。<br>
+        <b>44.</b> ①给父元素指定高度；②给父元素也设置浮动；③父元素 <code class="inl">overflow:hidden</code>；④在所有浮动元素最后加块级元素并 <code class="inl">clear:both</code>；⑤给父元素设置伪元素清除浮动（推荐）。原理同④，通过伪元素 <code class="inl">content:""; display:block; clear:both;</code> 实现。<br>
+        <b>45.</b> 见知识点总结"定位"表格。<br>
+        <b>46.</b> 没脱离文档流的元素，包含块是父元素；脱离文档流的元素，包含块是第一个拥有定位属性的祖先元素（都没有则整个页面）。<br>
+        <b>47.</b> 用于调整元素显示层级；值是数字无单位，值越大层级越高；只有定位的元素设置才有效；若层级没生效，检查其包含块的层级。<br>
+        <b>48.</b> 宽充满：<code class="inl">left:0; right:0;</code>；高充满：<code class="inl">top:0; bottom:0;</code>。居中方案一：<code class="inl">left:0;right:0;top:0;bottom:0;margin:auto;</code>（必须设置宽高）；方案二：<code class="inl">left:50%;top:50%;margin-left:-宽度一半;margin-top:-高度一半;</code>。<br>
+        <b>49.</b> 版心：固定宽度且水平居中的盒子，宽度一般 960~1200px。布局名词：topbar 顶部导航条、header/page-header 页头、nav/navbar 导航、search-box 搜索框、banner 横幅、content/main 主要内容、aside/sidebar 侧边栏、footer/page-footer 页脚。<br>
+        <b>50.</b> 全局选择器：简单案例可用，但会重置所有元素且不能做特定处理，实际开发不用；reset.css：选择到有默认样式的元素清空其样式，重置后网页像"一张白纸"；Normalize.css：在清除默认样式基础上保留有价值的默认样式，更温和，并提供 HTML5 元素设置。<br>
+        <b>51.</b> 更实用的选择器、更好的视觉效果（圆角/阴影/渐变）、丰富的背景效果、弹性盒子、Web 字体、增强的颜色（HSL/HSLA/RGBA、opacity）、2D/3D 变换、动画与过渡。<br>
+        <b>52.</b> content-box（默认）：width/height 设置的是内容区大小；border-box：width/height 设置的是盒子总大小（怪异盒模型）。border-box 更适合需要精确控制盒子占位的布局场景。<br>
+        <b>53.</b> <code class="inl">box-shadow: h-shadow v-shadow blur spread color inset</code>——水平位置、垂直位置（前两个必须写）、模糊距离、外延值、颜色、内阴影；<code class="inl">text-shadow: h-shadow v-shadow blur color</code>——水平位置、垂直位置（必须写）、模糊距离、颜色。<br>
+        <b>54.</b> <code class="inl">opacity</code> 是属性，设置整个元素（包括内容）的不透明度；<code class="inl">rgba()</code> 是颜色设置方式，其透明度仅调整颜色的透明度。<br>
+        <b>55.</b> <code class="inl">background-origin</code> 设置背景图的原点，默认 padding-box；<code class="inl">background-clip</code> 设置背景图向外裁剪的区域，默认 border-box，取值为 text 时需加 <code class="inl">-webkit-</code> 前缀。<br>
+        <b>56.</b> 长度值：指定大小（不允许负值）；百分比：按容器比例（不允许负值）；auto：图片真实大小（默认）；contain：等比缩放使图片完整包含在容器内，可能有留白；cover：等比缩放到完全覆盖容器，图片可能显示不完整，是相对更好的选择。<br>
+        <b>57.</b> <code class="inl">background: color url repeat position / size origin clip</code>。origin 和 clip 若只写一个值则两者都设置，写两个值时前面是 origin、后面是 clip；size 必须写在 position 后面并用 <code class="inl">/</code> 分开。<br>
+        <b>58.</b> <code class="inl">border-radius: 左上x 右上x 右下x 左下x / 左上y 右上y 右下y 左下y</code>。一个值是正圆半径；两个值分别是椭圆的 x 半径、y 半径。<br>
+        <b>59.</b> normal 超出自动换行、文本中换行被识别为空格（默认）；pre 原样输出；pre-wrap 在 pre 基础上超出自动换行；pre-line 超出自动换行且只识别换行、忽略空格；nowrap 强制不换行。text-overflow 生效条件：块容器、overflow 非 visible、white-space 为 nowrap。<br>
+        <b>60.</b> 线性渐变默认从上到下，可用关键词（to top / to right top）或角度（30deg）控制方向；径向渐变默认从圆心四散，用 <code class="inl">at 位置</code> 调整圆心、用 <code class="inl">circle</code> 或半径值调整形状。重复渐变：<code class="inl">repeating-linear-gradient</code> 与 <code class="inl">repeating-radial-gradient</code>，参数同前。<br>
+        <b>61.</b> <code class="inl">@font-face { font-family:"名字"; src:url('字体文件'); }</code>。字体图标优点：比图片更清晰、灵活性高（方便改大小颜色风格）、兼容性好。<br>
+        <b>62.</b> 位移改变位置、缩放放大缩小、旋转顺时针/逆时针转动、扭曲把元素"拉扯"变形。多重变换时若先旋转，后续位移会沿旋转后的坐标轴进行，容易与预期不符，所以建议最后旋转。<br>
+        <b>63.</b> 开启 3D 空间 <code class="inl">transform-style:preserve-3d</code> 写在父元素上；景深 <code class="inl">perspective</code> 也写在父元素上（发生 3D 变换元素的父元素）；背部可见性 <code class="inl">backface-visibility</code> 写在发生 3D 变换元素的自身。<br>
+        <b>64.</b> ease 平滑（默认）、linear 线性、ease-in 慢→快、ease-out 快→慢、ease-in-out 慢→快→慢、step-start 等同 steps(1,start)、step-end 等同 steps(1,end)、steps(整数,start|end) 步进函数、cubic-bezier(n,n,n,n) 贝塞尔曲线。<br>
+        <b>65.</b> 一个时间表示 duration，两个时间分别是 duration 和 delay，其他属性无数量和顺序要求。子属性：animation-name 指定动画、animation-duration 时长、animation-delay 延迟、animation-timing-function 类型、animation-iteration-count 次数、animation-direction 方向、animation-fill-mode 动画外状态、animation-play-state 播放状态（一般单独使用）。<br>
+        <b>66.</b> 过渡需要触发条件（如 hover），只在两个状态之间平滑变化；动画用 @keyframes 定义多个关键帧，可以自动播放、循环、指定次数和方向，无需触发条件。<br>
+        <b>67.</b> <code class="inl">justify-content</code> 控制主轴对齐；<code class="inl">align-items</code> 控制侧轴对齐（一行）；<code class="inl">align-content</code> 控制侧轴对齐（多行）。justify-content：flex-start/flex-end/center/space-between/space-around/space-evenly；align-items：flex-start/flex-end/center/baseline/stretch；align-content：flex-start/flex-end/center/space-between/space-around/space-evenly/stretch。<br>
+        <b>68.</b> <code class="inl">flex-basis</code> 主轴方向的基准长度（默认 auto，会让宽或高失效）；<code class="inl">flex-grow</code> 放大比例（默认 0）；<code class="inl">flex-shrink</code> 压缩比例（默认 1）。<code class="inl">flex</code> 默认 <code class="inl">0 1 auto</code>；<code class="inl">flex:auto</code> = 1 1 auto；<code class="inl">flex:1</code> = 1 1 0；<code class="inl">flex:none</code> = 0 0 auto。<br>
+        <b>69.</b> <code class="inl">order</code> 定义项目排列顺序，数值越小越靠前，默认 0；<code class="inl">align-self</code> 单独调整某个项目的对齐方式，默认 auto（继承父元素 align-items）。<br>
+        <b>70.</b> <code class="inl">@media 媒体类型 and (媒体特性) { ... }</code>。运算符：and 并且、, 或、not 否定、only 肯定。结合外部样式：①<code class="inl">&lt;link rel="stylesheet" media="具体媒体查询" href="x.css"&gt;</code>；②在 CSS 文件内用 @media 包裹。<br>
+        <b>71.</b> BFC 即块级格式上下文，可理解为元素的一个"特异功能"，默认关闭，满足条件后被激活。解决：①子元素不再产生 margin 塌陷；②自身不会被其他浮动元素覆盖；③子元素浮动时自身高度也不会塌陷。开启方式：根元素、浮动元素、绝对/固定定位元素、行内块元素、表格单元格（table/thead/tbody/tfoot/th/td/tr/caption）、overflow 不为 visible 的块元素、伸缩项目、多列容器、<code class="inl">column-span:all</code> 的元素、<code class="inl">display:flow-root</code>。
+      </div>
+    </div>
+
+    <div class="ans-block">
+      <h3>第五部分　代码补全</h3>
+      <pre>1. &lt;!DOCTYPE html&gt; / lang="zh-CN" / charset="UTF-8" / &lt;body&gt;
+
+2. href="#test1" / href="#" / target="_blank" / download="电影.mp4"
+
+3. border="1" / &lt;caption&gt;…&lt;/caption&gt;
+   &lt;thead&gt; … &lt;th&gt;姓名&lt;/th&gt;&lt;th&gt;成绩&lt;/th&gt; … &lt;/thead&gt;
+   &lt;tbody&gt; … &lt;td colspan="2"&gt;合并两列&lt;/td&gt; … &lt;/tbody&gt;
+
+4. method="get"（或 post）
+   &lt;label for="user"&gt; / &lt;input id="user" / maxlength="10" / placeholder="请输入用户名"
+   type="password"
+   name="gender"（两个 radio 的 name 必须一致） / checked
+   &lt;option value="sh" selected&gt;
+   rows="5" / cols="30"
+   type="submit" / type="reset"
+
+5. .parent::after { content: ""; display: block; clear: both; }
+
+6. position: absolute; left: 50%; top: 50%;
+   transform: translate(-50%, -50%);
+
+7. display: flex; justify-content: center; align-items: center;
+   flex: 1;（或 flex-grow: 1）
+
+8. overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+
+9. background-clip: text; -webkit-background-clip: text; color: transparent;
+
+10. transition: all 0.3s ease;  transform: scale(1.2);
+
+11. transform-style: preserve-3d;  perspective: 1000px;
+    transform: rotateY(180deg);   backface-visibility: hidden;
+
+12. @keyframes heart { … }
+    animation-name: heart; animation-duration: 1s;
+    animation-iteration-count: infinite; animation-direction: alternate;
+
+13. @media screen and (max-width: 768px) { .sidebar { display: none; } }
+
+14. overflow: hidden;  display: flow-root;  display: inline-block;（或 flex）</pre>
+    </div>
+
+    <div class="ans-block">
+      <h3>第六部分　代码编写题（参考实现）</h3>
+
+      <div class="row"><b>1. 页面骨架</b></div>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;我的第一个网页&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, HTML&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>2. 水平导航栏</b></div>
+      <pre>&lt;ul class="nav"&gt;
+    &lt;li&gt;&lt;a href="./index.html"&gt;首页&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="./course.html" target="_blank"&gt;课程&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="./about.html"&gt;关于我们&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="./contact.html"&gt;联系我们&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;style&gt;
+    .nav { list-style: none; margin: 0; padding: 0; }
+    .nav li { float: left; margin-right: 24px; }
+    .nav a { text-decoration: none; color: #333; }
+    .nav a:hover { color: #1f6feb; }
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>3. 课程表（含跨行跨列）</b></div>
+      <pre>&lt;table border="1" cellspacing="0"&gt;
+    &lt;caption&gt;课程表&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;时间&lt;/th&gt;&lt;th&gt;周一&lt;/th&gt;&lt;th&gt;周二&lt;/th&gt;&lt;th&gt;周三&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;上午&lt;/td&gt;
+            &lt;td colspan="3"&gt;HTML + CSS 综合实训&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;下午&lt;/td&gt;
+            &lt;td&gt;CSS 基础&lt;/td&gt;&lt;td&gt;CSS 布局&lt;/td&gt;&lt;td&gt;CSS3 动画&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;浮动布局&lt;/td&gt;&lt;td&gt;定位&lt;/td&gt;&lt;td&gt;Flex 布局&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>4. 注册表单</b></div>
+      <pre>&lt;form action="/register" method="post"&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;基本信息&lt;/legend&gt;
+
+        &lt;!-- 关联方式一：for = 控件 id --&gt;
+        &lt;label for="uname"&gt;用户名：&lt;/label&gt;
+        &lt;input id="uname" type="text" name="username" maxlength="10"&gt;&lt;br&gt;
+
+        &lt;!-- 关联方式二：控件套在 label 里 --&gt;
+        &lt;label&gt;
+            密码：&lt;input type="password" name="pwd" maxlength="6"&gt;
+        &lt;/label&gt;&lt;br&gt;
+
+        性别：
+        &lt;input type="radio" name="gender" value="male" id="nan" checked&gt;
+        &lt;label for="nan"&gt;男&lt;/label&gt;
+        &lt;input type="radio" name="gender" value="female" id="nv"&gt;
+        &lt;label for="nv"&gt;女&lt;/label&gt;&lt;br&gt;
+
+        爱好：
+        &lt;input type="checkbox" name="hobby" value="code"&gt;编程
+        &lt;input type="checkbox" name="hobby" value="read"&gt;阅读&lt;br&gt;
+
+        &lt;label for="city"&gt;城市：&lt;/label&gt;
+        &lt;select id="city" name="city"&gt;
+            &lt;option value="bj" selected&gt;北京&lt;/option&gt;
+            &lt;option value="sh"&gt;上海&lt;/option&gt;
+        &lt;/select&gt;&lt;br&gt;
+
+        &lt;input type="hidden" name="tag" value="100"&gt;
+
+        简介：&lt;br&gt;
+        &lt;textarea name="msg" rows="5" cols="30"&gt;&lt;/textarea&gt;&lt;br&gt;
+
+        &lt;input type="submit" value="注册"&gt;
+        &lt;input type="reset" value="重置"&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>5. 个人信息卡（语义化标签）</b></div>
+      <pre>&lt;header&gt;
+    &lt;h1&gt;张三&lt;/h1&gt;
+    &lt;nav&gt;&lt;a href="#skill"&gt;技能&lt;/a&gt; | &lt;a href="#contact"&gt;联系&lt;/a&gt;&lt;/nav&gt;
+&lt;/header&gt;
+&lt;section id="skill"&gt;
+    &lt;h2&gt;技能&lt;/h2&gt;
+    &lt;p&gt;熟悉 &lt;strong&gt;HTML + CSS&lt;/strong&gt;，正在学习 &lt;em&gt;JavaScript&lt;/em&gt;。&lt;/p&gt;
+    &lt;p&gt;常用技术：&lt;abbr title="Cascading Style Sheets"&gt;CSS&lt;/abbr&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;aside&gt;这里是侧边栏&lt;/aside&gt;
+&lt;footer&gt;
+    &lt;address&gt;邮箱：&lt;a href="mailto:zs@qq.com"&gt;zs@qq.com&lt;/a&gt;&lt;/address&gt;
+&lt;/footer&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>6. float 三栏布局</b></div>
+      <pre>&lt;div class="wrap"&gt;
+    &lt;div class="left"&gt;左&lt;/div&gt;
+    &lt;div class="right"&gt;右&lt;/div&gt;
+    &lt;div class="middle"&gt;中间&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+    .wrap { width: 1200px; margin: 0 auto; }
+    .wrap::after { content: ""; display: block; clear: both; }  /* 清除浮动 */
+    .left  { float: left;  width: 200px; height: 200px; background: #fdd; }
+    .right { float: right; width: 200px; height: 200px; background: #dfd; }
+    .middle{ height: 200px; background: #ddf; margin: 0 200px; }  /* 中间自适应 */
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>7. flex 三栏布局</b></div>
+      <pre>&lt;style&gt;
+    .wrap { width: 1200px; margin: 0 auto; display: flex; }
+    .left, .right { width: 200px; height: 200px; }
+    .middle { flex: 1; height: 200px; }   /* 中间自适应，不需要清除浮动 */
+&lt;/style&gt;
+&lt;!-- 好处：不用清除浮动、不受元素顺序影响、不用计算宽度、更易做响应式 --&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>8. flex 圣杯布局</b></div>
+      <pre>&lt;div class="page"&gt;
+    &lt;header&gt;头部&lt;/header&gt;
+    &lt;main&gt;
+        &lt;div class="left"&gt;左&lt;/div&gt;
+        &lt;div class="center"&gt;中间&lt;/div&gt;
+        &lt;div class="right"&gt;右&lt;/div&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;底部&lt;/footer&gt;
+&lt;/div&gt;
+&lt;style&gt;
+    * { margin: 0; padding: 0; }
+    .page { display: flex; flex-direction: column; height: 100vh; }
+    .page main { flex: 1; display: flex; }      /* 中间撑满剩余高度 */
+    .left, .right { width: 200px; }
+    .center { flex: 1; }
+    header, footer { height: 60px; }
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>9. 居中弹窗（两种方案）</b></div>
+      <pre>/* 方案一：绝对定位 + transform */
+.modal {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; height: 300px;
+    overflow: auto;              /* 内容溢出显示滚动条 */
+}
+/* 方案二：四方向为 0 + margin:auto（必须设置宽高） */
+.modal {
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    margin: auto;
+    width: 400px; height: 300px;
+    overflow: auto;
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>10. 粘性头部</b></div>
+      <pre>&lt;header class="topbar"&gt;导航&lt;/header&gt;
+&lt;style&gt;
+    .topbar {
+        position: sticky;   /* 不脱离文档流 */
+        top: 0;
+        height: 60px;
+        background: #fff;
+        z-index: 10;
+    }
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>11. 卡片列表（响应式）</b></div>
+      <pre>&lt;div class="list"&gt;
+    &lt;div class="card"&gt;1&lt;/div&gt; &lt;div class="card"&gt;2&lt;/div&gt;
+    &lt;div class="card"&gt;3&lt;/div&gt; &lt;div class="card"&gt;4&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+    .list { display: flex; flex-wrap: wrap; gap: 20px; }
+    .card { flex: 1; min-width: 0; height: 150px; background: #cfe0ff; }
+    /* 一行 4 张：每张占 1/4 再减去间距 */
+    .card { flex: 0 0 calc((100% - 60px) / 4); }
+
+    @media screen and (max-width: 768px) {
+        .card { flex: 0 0 calc((100% - 20px) / 2); }   /* 一行 2 张 */
+    }
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>12. 纯 CSS 下拉菜单</b></div>
+      <pre>&lt;ul class="menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;首页&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="has-sub"&gt;
+        &lt;a href="#"&gt;课程&lt;/a&gt;
+        &lt;ul class="sub"&gt;
+            &lt;li&gt;&lt;a href="#"&gt;HTML&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;CSS&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;JavaScript&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Vue&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;style&gt;
+    .menu { list-style: none; margin: 0; padding: 0; }
+    .menu &gt; li { float: left; position: relative; margin-right: 24px; }
+    .menu a { text-decoration: none; color: #333; }
+    .sub {
+        display: none;                 /* 默认隐藏 */
+        position: absolute; left: 0; top: 100%;
+        list-style: none; margin: 0; padding: 8px;
+        background: #fff; border: 1px solid #ddd;
+        white-space: nowrap;
+    }
+    .has-sub:hover .sub { display: block; }   /* 悬停显示 */
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>13. 卡片悬停效果</b></div>
+      <pre>.card {
+    width: 200px; height: 200px;
+    background: skyblue;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.2);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>14. 加载动画</b></div>
+      <pre>@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.loading {
+    width: 40px; height: 40px;
+    border: 4px solid #ddd;
+    border-top-color: #1f6feb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>15. 3D 翻转卡片</b></div>
+      <pre>&lt;div class="card"&gt;
+    &lt;div class="face front"&gt;正面&lt;/div&gt;
+    &lt;div class="face back"&gt;背面&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+    .card {
+        width: 200px; height: 300px;
+        position: relative;
+        transform-style: preserve-3d;   /* 父元素开启 3D 空间 */
+        perspective: 1000px;            /* 景深 */
+        transition: transform .6s;
+    }
+    .card:hover { transform: rotateY(180deg); }
+    .face {
+        position: absolute; inset: 0;
+        backface-visibility: hidden;    /* 加在自身 */
+        display: flex; align-items: center; justify-content: center;
+    }
+    .front { background: #cfe0ff; }
+    .back  { background: #ffd6d6; transform: rotateY(180deg); }
+&lt;/style&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>16. 三种渐变效果</b></div>
+      <pre>/* ① 横格纸 */
+.paper {
+    background-image: repeating-linear-gradient(
+        to bottom, #fff 0, #fff 29px, #ccc 29px, #ccc 30px);
+}
+/* ② 立体球 */
+.ball {
+    width: 200px; height: 200px; border-radius: 50%;
+    background-image: radial-gradient(circle at 30% 30%, #fff, #1f6feb 70%);
+}
+/* ③ 文字渐变 */
+.grad-text {
+    background-image: linear-gradient(to right, red, blue);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>17. 单行 / 多行省略号</b></div>
+      <pre>/* 单行 */
+.one-line {
+    width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* 多行（最多 3 行） */
+.multi-line {
+    width: 300px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>18. meter 与 progress</b></div>
+      <pre>&lt;p&gt;手机电量：&lt;meter min="0" max="100" low="20" high="80" optimum="100" value="65"&gt;65%&lt;/meter&gt; 65%&lt;/p&gt;
+&lt;p&gt;上传进度：&lt;progress max="100" value="40"&gt;40%&lt;/progress&gt; 40%&lt;/p&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>19. 搜索提示</b></div>
+      <pre>&lt;input type="text" list="mydata" placeholder="请输入关键字"&gt;
+&lt;datalist id="mydata"&gt;
+    &lt;option value="HTML"&gt;&lt;/option&gt;
+    &lt;option value="CSS"&gt;&lt;/option&gt;
+    &lt;option value="JavaScript"&gt;&lt;/option&gt;
+&lt;/datalist&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>20. 问答折叠</b></div>
+      <pre>&lt;details&gt;
+    &lt;summary&gt;什么是 BFC？&lt;/summary&gt;
+    &lt;p&gt;块级格式上下文，可理解为元素的一个"特异功能"。&lt;/p&gt;
+&lt;/details&gt;
+&lt;details&gt;
+    &lt;summary&gt;什么是 margin 塌陷？&lt;/summary&gt;
+    &lt;p&gt;子元素的上/下 margin 作用到了父元素上。&lt;/p&gt;
+&lt;/details&gt;
+&lt;details&gt;
+    &lt;summary&gt;flex 和浮动有什么区别？&lt;/summary&gt;
+    &lt;p&gt;flex 不需要清除浮动，且更容易做对齐和响应式。&lt;/p&gt;
+&lt;/details&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>21. 多列布局</b></div>
+      <pre>.news {
+    column-count: 3;
+    column-gap: 30px;
+    column-rule: 1px solid #ccc;
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>22. 背景相关效果</b></div>
+      <pre>/* ① 不平铺且居中 */
+.a { background: url(./img.jpg) no-repeat center; }
+/* ② 等比缩放完整显示 */
+.b { background: url(./img.jpg) no-repeat center / contain; }
+/* ③ 等比缩放铺满容器 */
+.c { background: url(./img.jpg) no-repeat center / cover; }
+/* ④ 作为文字背景 */
+.d {
+    background-image: url(./img.jpg);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}</pre>
+
+      <div class="row" style="margin-top:8px;"><b>23. iframe</b></div>
+      <pre>&lt;iframe src="https://www.atguigu.com" width="800" height="400" frameborder="0"&gt;&lt;/iframe&gt;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>24. HTML 实体</b></div>
+      <pre>&amp;nbsp; &amp;lt; &amp;gt; &amp;amp; &amp;copy; &amp;reg; &amp;trade; &amp;times; &amp;divide; &amp;yen;</pre>
+
+      <div class="row" style="margin-top:8px;"><b>25. meta 元信息</b></div>
+      <pre>&lt;meta charset="UTF-8"&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;meta name="keywords" content="前端, HTML, CSS"&gt;
+&lt;meta name="description" content="这是一个 HTML + CSS 练习页面"&gt;
+&lt;meta name="robots" content="index, follow"&gt;
+&lt;meta name="author" content="zhangsan"&gt;
+&lt;meta name="copyright" content="2026 © 版权所有"&gt;
+&lt;meta http-equiv="refresh" content="10;url=http://www.baidu.com"&gt;</pre>
+    </div>
+
+    <div class="ans-block">
+      <h3>第七部分　综合实操题（实现要点自查）</h3>
+      <div class="row exp">
+        <b>1. PC 端首页</b>：版心 1200px + <code class="inl">margin:0 auto</code>；先做 reset（<code class="inl">* { margin:0; padding:0; }</code> 或引入 reset.css / Normalize.css）；三栏用浮动或 flex；用浮动时要给父元素清除浮动（伪元素方案）。<br>
+        <b>2. 响应式卡片列表</b>：flex + <code class="inl">flex-wrap:wrap</code>；用媒体查询切换 <code class="inl">flex-basis</code>（4 / 2 / 1 张）；标题用 <code class="inl">text-overflow:ellipsis</code>；hover 用 <code class="inl">transform:scale()</code> + <code class="inl">box-shadow</code> + <code class="inl">transition</code>。<br>
+        <b>3. 注册页</b>：用 header/main/footer 等语义标签；表单用 placeholder、required、autofocus、pattern（手机号 <code class="inl">^1[3-9]\d{9}$</code>）、email、tel、date、color、range；整体 <code class="inl">display:flex; justify-content:center; align-items:center; min-height:100vh</code>。<br>
+        <b>4. 个人名片（3D）</b>：父元素 <code class="inl">transform-style:preserve-3d</code> + <code class="inl">perspective</code>；正反面绝对定位重叠；背面先 <code class="inl">rotateY(180deg)</code>；两个面都加 <code class="inl">backface-visibility:hidden</code>；hover 时父元素 <code class="inl">rotateY(180deg)</code>，配 <code class="inl">transition</code>。<br>
+        <b>5. 数据展示页</b>：table 用 caption/thead/tbody 结构并含 rowspan/colspan；progress 用 max+value；meter 用 min/max/low/high/optimum/value；多列用 <code class="inl">column-count</code> + <code class="inl">column-gap</code> + <code class="inl">column-rule</code>；details+summary 做折叠；整体 flex 布局 + 媒体查询适配。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    HTML + CSS 练习题库 · 依据《HTML4 笔记》《HTML5 笔记》《CSS2 笔记》《CSS3 笔记》编制 · 无选择题 · 不计分
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('toggleBtn');
+    btn.addEventListener('click', function () {
+      var on = document.body.classList.toggle('show-ans');
+      btn.textContent = on ? '隐藏参考答案' : '显示参考答案';
+    });
+  })();
+</script>
+</body>
+</html>
