@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS背景属性&鼠标属性</title>
+    <style>
+        h1 {
+            color: #333;
+            text-align: center;
+            margin: 0 auto;
+            width: fit-content;
+        }
+        .first-p > p{
+            background-color: #f33303;
+            display: inline-block;
+        }
+        .second-p > p{
+            background-image: url(../images/first-icon.png);
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: cover;
+            display: inline-block;
+        }
+        /* pointer ：小手
+            move ：移动图标
+            text ：文字选择器 
+            crosshair ：十字架 
+            wait ：等待
+            help ：帮助 */
+        .third-p > p{
+            cursor:pointer
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS背景属性</h1>
+    <div class="first-p">
+        <p>CSS背景属性用于设置元素的背景样式，包括背景颜色、背景图片、背景位置、背景重复等。</p>
+    </div>
+    <div class="second-p">
+        <p>示例2</p>
+    </div>
+    <div class="third-p">
+        <p>示例3</p>
+    </div>
+</body>
+</html>

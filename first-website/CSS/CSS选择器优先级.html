@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS选择器优先级</title>
+    <style>
+        * {
+            font-size: 30px;
+            color: #000000;
+        }
+        #my-text {
+            color: blue;
+        }
+        .text {
+            color: green !important;
+        }
+        #first-div {
+            color: orange;
+        }
+        #second-div {
+            color: rgba(20%,60%,80%,50%);
+        }
+        .second {
+            color: #00ff00;
+        }
+        .div {
+            color: #0000ff;
+        }
+        div {
+            color: #ff0000;
+        }
+        .third {
+            color: #ff00ff;
+        }
+        [data-tenant-id="50001"] {
+            color:HSL(30,100%,50%);
+        }
+        span > div > p{
+            color:HSLA(30,100%,50%,0.5);
+        }
+        .fourth-div{
+            font-size: 20px;
+        }
+
+        #fifth-div{
+            font-family: "Times New Roman",SimHei,serif;
+        }
+        #sixth-div{
+            font-style:italic;
+        }
+        #seventh-div{
+            font-size: 100px;
+            font-weight:200;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>CSS选择器优先级</h1>
+    <p id="my-text" class="text" style="color: red;">!important优先级最高</p>
+    <p><div id="first-div" style="color:rgba(138, 43, 226,0.5);">行内样式次之</div></p>
+    <p><div id="second-div" class="second div">id选择器优先级高于类选择器</div></p>
+    <p><div class="third div">类选择器优先级高于元素、标签选择器</div></p>
+    <p><div data-tenant-id="50001">属性选择器优先级高于元素、标签选择器</div></p>
+    <span>
+        <div>
+            <p>元素、标签选择器优先级高于*，继承的样式</p>
+        </div>
+    </span>
+
+    <div class="fourth-div">
+        <p>*优先级高于继承的优先级，继承的优先级最低</p>
+    </div>
+    <div id="fifth-div">
+        <p>字体族: "Times New Roman", SimHei, serif</p>
+    </div>
+    <div id="sixth-div">
+        <p>斜体</p>
+    </div>
+    <div id="seventh-div">
+        <p>字体粗细</p>
+    </div>
+</body>
+</html>

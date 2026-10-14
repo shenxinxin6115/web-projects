@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS表格属性</title>
+    <style>
+        table {
+            table-layout: auto;
+            /* border-collapse: collapse;时不生效 */
+            border-spacing: 10px; 
+            border-collapse: separate;
+            /* 单元格合并时不生效 */
+            empty-cells: hide;
+            caption-side: bottom;
+        }
+        th, td {
+            border-width: 1px;
+            border-color: rgb(21, 160, 28);
+            border-style:dashed;
+        }
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table >
+        <caption>CSS表格属性</caption>
+        <thead>
+            <tr>
+                <th>属性</th>
+                <th>描述</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>border-collapse</td>
+                <td>设置表格边框的显示方式</td>
+            </tr>
+            <tr>
+                <td>border-spacing</td>
+                <td>设置表格单元格之间的间距</td>
+            </tr>
+            <tr>
+                <td>caption-side</td>
+                <td>设置表格标题的位置</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>以上是常用的CSS表格属性</td>
+                <td></td>
+            </tr>
+        </tfoot>   
+    </table>
+</body>
+</html>
